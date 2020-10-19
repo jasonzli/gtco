@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
+
 
 public class Hand : MonoBehaviour
 {
 
     public List<GameObject> selectedCards;
+
+    public Text CardName;
+
+    public GameObject Cards;
 
     [SerializeField]
     private int handLimit = 5;
@@ -14,6 +21,9 @@ public class Hand : MonoBehaviour
     void Start()
     {
         selectedCards = new List<GameObject>();
+
+        Cards.GetComponentInChildren<MeshRenderer>();
+        CardName.GetComponent<Text>();
     }
 
     void Update()
@@ -22,7 +32,6 @@ public class Hand : MonoBehaviour
         //use raycast(?)
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Ray hit");
             CastRay();
         }
     }
@@ -31,7 +40,15 @@ public class Hand : MonoBehaviour
     {
         Ray2D ray = new Ray2D(transform.position, transform.forward);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        Debug.Log(hit.collider.gameObject.name);
+        Debug.Log("Ray hit");
+        //Debug.Log(hit.collider.gameObject.name);
+        MeshRenderer rend = hit.transform.GetComponent<MeshRenderer>();
+        //MeshCollider meshCollider = hit.collider.GetComponent<MeshCollider>();
+        Debug.Log(rend);
+        if (rend == Cards.GetComponentInChildren<MeshRenderer>())
+        {
+            Debug.Log(rend);
+        }
     }
 
     //
