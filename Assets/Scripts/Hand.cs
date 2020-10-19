@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
 {
@@ -19,6 +20,18 @@ public class Hand : MonoBehaviour
     {
         //potentially hand input
         //use raycast(?)
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Ray hit");
+            CastRay();
+        }
+    }
+
+    void CastRay()
+    {
+        Ray2D ray = new Ray2D(transform.position, transform.forward);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        Debug.Log(hit.collider.gameObject.name);
     }
 
     //
