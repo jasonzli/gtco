@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
 public class Hand : MonoBehaviour
 {
 
-    public List<GameObject> selectedCards;
+    public List<Card> selectedCards;
 
     public Text CardName;
 
@@ -20,7 +20,7 @@ public class Hand : MonoBehaviour
 
     void Start()
     {
-        selectedCards = new List<GameObject>();
+        selectedCards = new List<Card>();
 
         Cards.GetComponentInChildren<MeshRenderer>();
         CardName.GetComponent<Text>();
@@ -38,21 +38,50 @@ public class Hand : MonoBehaviour
 
     void CastRay()
     {
-        Ray2D ray = new Ray2D(transform.position, transform.forward);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        Debug.Log("Ray hit");
-        //Debug.Log(hit.collider.gameObject.name);
-        MeshRenderer rend = hit.transform.GetComponent<MeshRenderer>();
-        //MeshCollider meshCollider = hit.collider.GetComponent<MeshCollider>();
-        Debug.Log(rend);
-        if (rend == Cards.GetComponentInChildren<MeshRenderer>())
-        {
-            Debug.Log(rend);
-        }
-    }
+        //This shouldn't be a 2D ray, we are working in 3D
+        //It shouldn't be from transform, it should be from screen position.
+        // Ray2D ray = new Ray2D(transform.position, transform.forward);
+        // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-    //
-    void AddCard(GameObject card){
+        //if we hit 
+
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(ray, out hit)) {
+            Transform objectHit = hit.transform;
+
+            if (objectHit.name == "Front"){
+                
+                Card target;
+                target = objectHit.parent.GetComponent<Card>();
+
+                if (selectedCards.Count < 5){
+                    selectedCards.Add(target);
+                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                }else{
+                    ClearHand();
+                    Debug.Log($"Max Hand Limit reached, clearing hand");
+                    selectedCards.Add(target);
+                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                }
+            }
+        }
+
+        // MeshRenderer rend = hit.transform.GetComponent<MeshRenderer>();
+        
+        // Debug.Log(rend);
+        // if (rend == Cards.GetComponentInChildren<MeshRenderer>())
+        // {
+        //     Debug.Log(rend);
+        // }
+
+    }
+    
+    void SubmitHand(){
+        //Do something with another thing that reads the hand
+    }
+    void AddCard(Card card){
         if (selectedCards.Count > handLimit){
             Debug.Log("Hand is full");
             return;
