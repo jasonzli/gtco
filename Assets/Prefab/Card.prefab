@@ -118,7 +118,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6903622696572655656}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -126,7 +126,7 @@ Transform:
   - {fileID: 5877728704662574839}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &4209645579420266296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,15 +139,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c53b6fa56b627b48976f4020d843f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textures:
-  - {fileID: 2800000, guid: 42df889bbb8c62c448993283fc4d9e41, type: 3}
-  - {fileID: 2800000, guid: 5f44641823d65404f91839b825526000, type: 3}
-  - {fileID: 2800000, guid: 6ad7ec5ec956a934ea88f0837b322424, type: 3}
-  - {fileID: 2800000, guid: 37eec789f2d65f94f9a015963aecd519, type: 3}
-  - {fileID: 2800000, guid: 104ec99e78bb49546b0896998e10172f, type: 3}
-  - {fileID: 2800000, guid: fe058c20b25ff5e46956fe93eca9d6e6, type: 3}
-  - {fileID: 2800000, guid: e525197216172a748aaaa00e4376d6ee, type: 3}
-  - {fileID: 2800000, guid: 1a253a34a05df684b93d197b003d4661, type: 3}
+  cardTypes:
+  - {fileID: 11400000, guid: 8ea1176a48122f7448b01d939e0fc169, type: 2}
+  - {fileID: 11400000, guid: 53a569969a16a5549b4a5d0326943679, type: 2}
+  - {fileID: 11400000, guid: aa2c9ba2314972b429bb7385b33205e3, type: 2}
+  - {fileID: 11400000, guid: f6ae9f0a3b593f14fae8b2735dd32a89, type: 2}
+  - {fileID: 11400000, guid: dc9b801c03e186c4dadb060b6c7d0690, type: 2}
+  - {fileID: 11400000, guid: 59e8e742d90a5c6429e7861d8f53f277, type: 2}
+  - {fileID: 11400000, guid: 48d22c3c3c1a36944831ce81d6367be7, type: 2}
+  rotationSpeed: 60
   frontRenderer: {fileID: 8662281700182428304}
 --- !u!1 &7555219790833105139
 GameObject:

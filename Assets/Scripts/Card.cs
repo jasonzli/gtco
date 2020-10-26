@@ -6,10 +6,8 @@ public class Card : MonoBehaviour
 {
     
     [SerializeField]
-    private Texture2D[] textures;
-    //list of textures
-    //in reality a texture should have a state quality to it?
-    //or perhaps a property rather than a repeated reference
+    private CardSO[] cardTypes;
+    CardSO properties;
 
     [SerializeField]
     public float rotationSpeed = 60f;
@@ -19,16 +17,18 @@ public class Card : MonoBehaviour
 
     private float accumulatedSpin = 0;
     MaterialPropertyBlock block;
+
+    //properties from the scriptable object instead of being stored here
+    public string Name{ get {return properties.cardName;}}
+    public string Word{ get {return properties.cardWord;}}
+    
     // Start is called before the first frame update
     void Start()
     {
+        properties = cardTypes[Random.Range(0,cardTypes.Length)];
         block  = new MaterialPropertyBlock();
         frontRenderer.GetPropertyBlock(block);
-        Debug.Log((Random.Range(0,textures.Length)));
-        Debug.Log(textures[Random.Range(0,textures.Length)]);
-        block.SetTexture("_MainTex", textures[Random.Range(0,textures.Length)]);
-        // frontRenderer.material.SetTexture("_MainTex",textures[Random.Range(0,textures.Length)]);
-        // frontRenderer.material.SetColor("_Color",Color.black);
+        block.SetTexture("_MainTex", properties.frontImage);
         frontRenderer.SetPropertyBlock(block);
     
     }

@@ -18,13 +18,13 @@ public class ring : MonoBehaviour
 
     public float spinSpeed = 60f;
 
-    public float randomDir = 1;
+    public float randomDir;
 
     public List<GameObject> cards;
 
     void Start()
     {
-        randomDir = Random.Range(0f,1f) > .5 ? 1 : -1;
+        //randomDir = Random.Range(0f,1f) > .5 ? 1 : -1;
         cards = new List<GameObject>();
         for (int i = 0; i < numberOfCards; i++){
             //create card
@@ -44,6 +44,7 @@ public class ring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //this is a set of code to move the cards to the correct radius
         int count =0;
         foreach( GameObject card in cards){
             float a = count * Mathf.PI *2f / numberOfCards + .4f*Time.time*randomDir;
