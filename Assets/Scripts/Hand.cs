@@ -11,7 +11,8 @@ public class Hand : MonoBehaviour
 
     public List<Card> selectedCards;
 
-    public Text CardName;
+    public Text[] CardName;
+    private int NameLimit = 5;
 
     public GameObject Cards;
 
@@ -23,7 +24,6 @@ public class Hand : MonoBehaviour
         selectedCards = new List<Card>();
 
         Cards.GetComponentInChildren<MeshRenderer>();
-        CardName.GetComponent<Text>();
     }
 
     void Update()
@@ -59,6 +59,8 @@ public class Hand : MonoBehaviour
                 if (selectedCards.Count < 5){
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                    //CardName[0].text = target.Name;
+                    //CardName.text = target.Name + " " + target.Word;
                 }else{
                     ClearHand();
                     Debug.Log($"Max Hand Limit reached, clearing hand");
