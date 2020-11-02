@@ -11,7 +11,10 @@ public class Hand : MonoBehaviour
 
     public List<Card> selectedCards;
 
-    public Text CardName;
+    public Text SentenceText;
+    private int NameCounter = 0;
+
+    public Text[] Names;
 
     public GameObject Cards;
 
@@ -22,8 +25,14 @@ public class Hand : MonoBehaviour
     {
         selectedCards = new List<Card>();
 
+        SentenceText.GetComponent<Text>();
+
         Cards.GetComponentInChildren<MeshRenderer>();
-        CardName.GetComponent<Text>();
+
+        for (int i = 0; i < Names.Length; i++)
+        {
+            Names[i].enabled = false;
+        }
     }
 
     void Update()
@@ -33,6 +42,21 @@ public class Hand : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             CastRay();
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            FlipCard();
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            TurnCard();
+        }
+
+        if (NameCounter == 5)
+        {
+            Invoke("ChangeText" , 3.0f);
         }
     }
 
@@ -59,7 +83,59 @@ public class Hand : MonoBehaviour
                 if (selectedCards.Count < 5){
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
-                }else{
+
+                    if (target.Name == "Parvati")
+                    {
+                        SentenceText.text = "Parvati ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
+                        NameCounter = 1;
+                        print(NameCounter);
+                    }
+
+                    if (target.Name == "Seven")
+                    {
+                        if (NameCounter == 1)
+                        {
+                            SentenceText.text = "Parvati uses ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
+                            NameCounter = 2;
+                            print(NameCounter);
+                        }
+                    }
+
+                    if (target.Name == "Nandi")
+                    {
+                        if (NameCounter == 2)
+                        {
+                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but _______ can still ______ it because Nandi is his servant and not Parvati’s.";
+                            NameCounter = 3;
+                            print(NameCounter);
+                        }
+                    }
+
+                    if (target.Name == "Queen")
+                    {
+                        if (NameCounter == 3)
+                        {
+                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but _______ can still access it because Nandi is his servant and not Parvati’s.";
+                            NameCounter = 4;
+                            print(NameCounter);
+                        }
+                    }
+
+                    if (target.Name == "Shiva")
+                    {
+                        if (NameCounter == 4)
+                        {
+                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but Shiva can still access it because Nandi is his servant and not Parvati’s.";
+                            NameCounter = 5;
+                            print(NameCounter);
+                        }
+                    }
+
+                    //Text = _______ ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not ______’s.
+                    //Text full = Parvati uses Nandi's services to protect her right to Privacy at Mt Kailash but Shiva can still access it because Nandi is his servant and not Parvati’s.
+                }
+                else
+                {
                     ClearHand();
                     Debug.Log($"Max Hand Limit reached, clearing hand");
                     selectedCards.Add(target);
@@ -67,15 +143,53 @@ public class Hand : MonoBehaviour
                 }
             }
         }
+    }
 
-        // MeshRenderer rend = hit.transform.GetComponent<MeshRenderer>();
-        
-        // Debug.Log(rend);
-        // if (rend == Cards.GetComponentInChildren<MeshRenderer>())
-        // {
-        //     Debug.Log(rend);
-        // }
+    void FlipCard()
+    {
+        RaycastHit hit2;
+        Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray2, out hit2))
+        {
+            Transform objectHit = hit2.transform;
 
+            if ((objectHit.name == "Front") || (objectHit.name == "Back"))
+            {
+                Card target;
+
+                target = objectHit.parent.GetComponent<Card>();
+
+                target.transform.Rotate(180.0f, 0.0f, 0.0f);
+            }
+        }
+    }
+
+    void TurnCard ()
+    {
+        RaycastHit hit3;
+        Ray ray3 = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray3, out hit3))
+        {
+            Transform objectHit = hit3.transform;
+
+            if (objectHit.name == "Front") //|| (objectHit.name == "Back"))
+            {
+                Card target;
+
+                target = objectHit.parent.GetComponent<Card>();
+
+                target.transform.Rotate(0.0f, -180.0f, 0.0f);
+            }
+        }
+    }
+
+    void ChangeText ()
+    {
+        for (int i = 0; i < Names.Length; i++)
+        {
+            Names[i].enabled = true;
+        }
+        SentenceText.text = "User uses Smart Device which sends their audio recordings to Amazon/Google despite Users saying ‘No’ in the first place, because they want to improve their AI services.";
     }
     
     void SubmitHand(){

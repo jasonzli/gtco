@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &584670294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 697851541}
   - component: {fileID: 697851542}
   - component: {fileID: 697851543}
+  - component: {fileID: 697851544}
   m_Layer: 0
   m_Name: Ring
   m_TagString: Untagged
@@ -222,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697851540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 27.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -235,30 +236,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697851540}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b048e112ce71cc4db78d36f7a5aaf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 6903622696572655656, guid: 2999d0d5c3bcf614ba9b1c371fb875d2,
-    type: 3}
-  radius: 22.8
-  numberOfCards: 12
-  spinSpeed: 0
+  cardPrefab: {fileID: 0}
+  radius: 100
+  numberOfCards: 10
+  spinSpeed: 60
   randomDir: 0
-  cards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  cards: []
 --- !u!114 &697851543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +259,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d7fd600e5f2ab4c82f927ad6f111e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &697851544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697851540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0a4dd583c6c994cb9fe6f32357fb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTypes:
+  - {fileID: 11400000, guid: 8ea1176a48122f7448b01d939e0fc169, type: 2}
+  - {fileID: 11400000, guid: 53a569969a16a5549b4a5d0326943679, type: 2}
+  - {fileID: 11400000, guid: aa2c9ba2314972b429bb7385b33205e3, type: 2}
+  - {fileID: 11400000, guid: f6ae9f0a3b593f14fae8b2735dd32a89, type: 2}
+  - {fileID: 11400000, guid: dc9b801c03e186c4dadb060b6c7d0690, type: 2}
+  - {fileID: 11400000, guid: 59e8e742d90a5c6429e7861d8f53f277, type: 2}
+  - {fileID: 11400000, guid: 48d22c3c3c1a36944831ce81d6367be7, type: 2}
+  cardPrefab: {fileID: 6903622696572655656, guid: 2999d0d5c3bcf614ba9b1c371fb875d2,
+    type: 3}
+  cards: []
+  radius: 50
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &984193928
 MonoBehaviour:
   m_ObjectHideFlags: 0

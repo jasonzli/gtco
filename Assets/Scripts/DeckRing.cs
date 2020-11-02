@@ -9,27 +9,86 @@ The ring should have the following properties
  * a location
  * possibly an ability to move
 */
-public class DeckRing : MonoBehaviour
-{
-    [SerializeField]
-    private List<CardSO> cardTypes;
-    private Dictionary<string, int> cardBreakdown; //uses cardType.Name as keys
+using UnityEngine;
+
+//[CreateAssetMenu(fileName = "DeckRing", menuName = "gtco/DeckRing", order = 1)]
+public class DeckRing : MonoBehaviour {
+    
+    public List<CardSO> cardTypes;
+    public  Dictionary<string, int> cardBreakdown; //uses cardType.Name as keys
 
     // the card object we use to create cards and then manually add the SO
     public GameObject cardPrefab; 
+
+    public List<GameObject> cards = new List<GameObject>();
+
     [SerializeField]
     public float radius;
+
+    CardSO FindCardTypeByName(string name, List<CardSO> list){
+        CardSO type = null;
+        for( int i = 0; i < list.Count; i++){
+            if (list[i].cardName == name){
+                type = list[i];
+            }
+        }
+        return type;
+    }
+
+    void createCard(){//https://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary
+        foreach (var cardPair in cardBreakdown){
+            for( int i = 0; i <  cardPair.Value; i++){
+                GameObject o = Instantiate(cardPrefab);
+                o.transform.SetParent(transform);
+                o.name = cardPair.Key;
+                o.GetComponent<Card>().Properties = FindCardTypeByName(cardPair.Key, cardTypes);
+                cards.Add(o);
+            }
+        }
+    }
+
+    
+    void PlaceCards(){
+        //form a ring around the parent
+        //also apply the matrix to the position.
+        for (int i = 0; i < cards.Count; i++){
+            float a = i * Mathf.PI * 2f / cards.Count;
+            Vector2 offset = new Vector2( radius * Mathf.Cos(a), radius * Mathf.Sin(a));
+            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f*i/cards.Count, transform.position.z + offset.y);
+            cards[i].transform.position = pos;
+            
+            //don't worry about matrix application because we are properly parented now
+            // Matrix4x4 parentMat = transform.localToWorldMatrix;
+            // cards[i].transform.position = parentMat.MultiplyVector(pos);
+        }
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cardBreakdown = SetCardDictionary();
+        createCard();
+        PlaceCards();
     }
 
-    // Update is called once per frame
-    void Update()
+    Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
+        Dictionary<string,int> d = new Dictionary<string, int>();
+        d.Add("Ace", 2);
+        d.Add("Jack", 3);
+        d.Add("King", 4);
+        d.Add("Nandi", 1);
+        d.Add("Nine", 2);
+        d.Add("Parvati", 4);
+        d.Add("Queen",3);
+        d.Add("Seven", 2);
+        d.Add("Shiva", 1);
+        d.Add("Ten",3);
         
+
+
+        return d;
     }
+    
 }
