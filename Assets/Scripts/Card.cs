@@ -8,6 +8,10 @@ public class Card : MonoBehaviour
     [SerializeField]
     private CardSO[] cardTypes;
     CardSO properties;
+    public CardSO Properties {
+        get {return properties;}
+        set {properties = value;}
+    }
 
     [SerializeField]
     public float rotationSpeed = 60f;

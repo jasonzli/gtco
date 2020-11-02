@@ -25,6 +25,7 @@ public class Reader : MonoBehaviour
         foreach (Card c in hand){
             key += c.Name;
         }
+        
         //if we find one, return true or otherwise we exit.
         if (answerKey.ContainsKey(key)){
             return true;
