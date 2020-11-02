@@ -39,6 +39,8 @@ public class ring : MonoBehaviour
             }
             cards.Add(go);
         }
+
+
     }
 
     // Update is called once per frame
