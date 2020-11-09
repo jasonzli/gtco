@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour
 
     public List<Card> selectedCards;
 
+    public Reader readerObject;
     public Text SentenceText;
     private int NameCounter = 0;
 
@@ -29,7 +30,7 @@ public class Hand : MonoBehaviour
     void Start()
     {
         selectedCards = new List<Card>();
-
+        readerObject.Init();
         SentenceText.GetComponent<Text>();
         SentenceText.enabled = false;
 
@@ -301,6 +302,7 @@ public class Hand : MonoBehaviour
 
     public void ClearHand(){
         //empty the hand object
+        readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
         selectedCards.Clear();
     }
 }
