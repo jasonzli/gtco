@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4209645579420266296}
   m_Layer: 0
   m_Name: Card
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,9 +143,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ea1176a48122f7448b01d939e0fc169, type: 2}
   - {fileID: 11400000, guid: 53a569969a16a5549b4a5d0326943679, type: 2}
   - {fileID: 11400000, guid: aa2c9ba2314972b429bb7385b33205e3, type: 2}
+  - {fileID: 11400000, guid: e4fefe53ead78b843aafe65be2449170, type: 2}
   - {fileID: 11400000, guid: f6ae9f0a3b593f14fae8b2735dd32a89, type: 2}
+  - {fileID: 11400000, guid: 4a2c4b282f272644596ed9275b40d074, type: 2}
   - {fileID: 11400000, guid: dc9b801c03e186c4dadb060b6c7d0690, type: 2}
   - {fileID: 11400000, guid: 59e8e742d90a5c6429e7861d8f53f277, type: 2}
+  - {fileID: 11400000, guid: a7866a7c0e1680943b297b9785bf41b1, type: 2}
   - {fileID: 11400000, guid: 48d22c3c3c1a36944831ce81d6367be7, type: 2}
   rotationSpeed: 60
   frontRenderer: {fileID: 8662281700182428304}
