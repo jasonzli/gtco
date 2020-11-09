@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour
 
     public List<Card> selectedCards;
 
+    public Reader readerObject;
     public Text SentenceText;
     private int NameCounter = 0;
 
@@ -21,11 +22,17 @@ public class Hand : MonoBehaviour
     [SerializeField]
     private int handLimit = 5;
 
+    public GameObject[] HandCards;
+    private int HandCounter = 0;
+
+    public GameObject ZoomedCard;
+
     void Start()
     {
         selectedCards = new List<Card>();
-
+        readerObject.Init();
         SentenceText.GetComponent<Text>();
+        SentenceText.enabled = false;
 
         Cards.GetComponentInChildren<MeshRenderer>();
 
@@ -33,6 +40,13 @@ public class Hand : MonoBehaviour
         {
             Names[i].enabled = false;
         }
+
+        for (int i = 0; i < HandCards.Length; i++)
+        {
+            HandCards[i].SetActive(false);
+        }
+
+        ZoomedCard.SetActive(false);
     }
 
     void Update()
@@ -57,6 +71,23 @@ public class Hand : MonoBehaviour
         if (NameCounter == 5)
         {
             Invoke("ChangeText" , 3.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            ZoomInCard();
+            //show zoomed in card
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            ZoomOutCard();
+            //remove zoomed in card
+        }
+
+        if (HandCounter == 5)
+        {
+            SentenceText.enabled = true;
         }
     }
 
@@ -84,14 +115,26 @@ public class Hand : MonoBehaviour
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-                    if (target.Name == "Parvati")
+                    if ((target.Name == "Parvati") && (target.tag == "Card"))
+                    {
+                        target.gameObject.SetActive(false);
+                        HandCards[0].SetActive(true);
+                        HandCounter = HandCounter + 1;
+                    }
+                    else if (target.Name == "Parvati")
                     {
                         SentenceText.text = "Parvati ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
                         NameCounter = 1;
                         print(NameCounter);
                     }
 
-                    if (target.Name == "Seven")
+                    if ((target.Name == "Seven") && (target.tag == "Card"))
+                    {
+                        target.gameObject.SetActive(false);
+                        HandCards[1].SetActive(true);
+                        HandCounter = HandCounter + 1;
+                    }
+                    else if (target.Name == "Seven")
                     {
                         if (NameCounter == 1)
                         {
@@ -101,7 +144,13 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if (target.Name == "Nandi")
+                    if ((target.Name == "Nandi") && (target.tag == "Card"))
+                    {
+                        target.gameObject.SetActive(false);
+                        HandCards[2].SetActive(true);
+                        HandCounter = HandCounter + 1;
+                    }
+                    else if (target.Name == "Nandi")
                     {
                         if (NameCounter == 2)
                         {
@@ -111,7 +160,13 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if (target.Name == "Queen")
+                    if ((target.Name == "Queen") && (target.tag == "Card"))
+                    {
+                        target.gameObject.SetActive(false);
+                        HandCards[3].SetActive(true);
+                        HandCounter = HandCounter + 1;
+                    }
+                    else if (target.Name == "Queen")
                     {
                         if (NameCounter == 3)
                         {
@@ -121,7 +176,13 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if (target.Name == "Shiva")
+                    if ((target.Name == "Shiva") && (target.tag == "Card"))
+                    {
+                        target.gameObject.SetActive(false);
+                        HandCards[4].SetActive(true);
+                        HandCounter = HandCounter + 1;
+                    }
+                    else if (target.Name == "Shiva")
                     {
                         if (NameCounter == 4)
                         {
@@ -191,6 +252,30 @@ public class Hand : MonoBehaviour
         }
         SentenceText.text = "User uses Smart Device which sends their audio recordings to Amazon/Google despite Users saying ‘No’ in the first place, because they want to improve their AI services.";
     }
+
+    void ZoomInCard ()
+    {
+        RaycastHit hit4;
+        Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray4, out hit4))
+        {
+            ZoomedCard.SetActive(true);
+            GameObject objectHit = hit4.transform.gameObject;
+
+            Instantiate(objectHit.gameObject, ZoomedCard.transform);
+
+            /*if (hit4.transform.tag == "Card")
+            {
+                Instantiate(hit4.transform.gameObject, ZoomedCard.transform.position, ZoomedCard.transform.rotation);
+                Debug.Log("Zoom In");
+            }*/
+        }
+    }
+
+    void ZoomOutCard ()
+    {
+        ZoomedCard.SetActive(false);
+    }
     
     void SubmitHand(){
         //Do something with another thing that reads the hand
@@ -217,6 +302,7 @@ public class Hand : MonoBehaviour
 
     public void ClearHand(){
         //empty the hand object
+        readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
         selectedCards.Clear();
     }
 }
