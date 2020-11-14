@@ -930,6 +930,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  readerObject: {fileID: 11400000, guid: d42885e383d1f8b4b991cc838611575a, type: 2}
   SentenceText: {fileID: 2005243007}
   Names:
   - {fileID: 1833933581}
