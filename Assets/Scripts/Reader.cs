@@ -18,8 +18,6 @@ if not found, boo, we tell them fuck off
 public class Reader : ScriptableObject
 {
 
-    public Text Card_Text;
-
     public TextAsset answerCSV;
     public Dictionary<string,string> answerKey;
 
@@ -63,7 +61,6 @@ public class Reader : ScriptableObject
         //if we find one, return true or otherwise we exit.
         if (answerKey.ContainsKey(key)){
             Debug.Log($"{key} found, the answer is {answerKey[key]}");
-            Card_Text.text = ($"{answerKey[key]}");
             return true;
         }
 

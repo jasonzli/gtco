@@ -78,6 +78,11 @@ public class Hand : MonoBehaviour
 
         if (HandCounter == 5)
         {
+            /*if (readerObject.answerKey.ContainsKey(string key))
+            {
+                SentenceText.text = $"{ readerObject.answerKey}";
+                print("working");
+            }*/
             //SentenceText.enabled = true;
         }
     }
