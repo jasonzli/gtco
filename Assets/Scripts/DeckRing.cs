@@ -23,7 +23,12 @@ public class DeckRing : MonoBehaviour {
     public List<GameObject> cards = new List<GameObject>();
 
     [SerializeField]
-    public float radius;
+    public float spiralRotation = 1f;
+    [SerializeField]
+    public float size = 4f;
+    [SerializeField]
+    [Range(0.01f, 20f)]
+    public float k = .1f;
 
     CardSO FindCardTypeByName(string name, List<CardSO> list){
         CardSO type = null;
@@ -52,9 +57,13 @@ public class DeckRing : MonoBehaviour {
         //form a ring around the parent
         //also apply the matrix to the position.
         for (int i = 0; i < cards.Count; i++){
-            float a = i * Mathf.PI * 2f / cards.Count;
-            Vector2 offset = new Vector2( radius * Mathf.Cos(a), radius * Mathf.Sin(a));
-            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f*i/cards.Count, transform.position.z + offset.y);
+          //  float a = i * Mathf.PI * 2f / cards.Count * spirals;
+           // float r = radius * i / cards.Count;
+           // float r = radius * Mathf.Exp(a * .25f) * i/ cards.Count;
+            float a = Mathf.Log(k* spiralRotation * (i+.01f) / cards.Count)/k; 
+            float r = size * i / cards.Count;
+            Vector2 offset = new Vector2( r * Mathf.Cos(a), r * Mathf.Sin(a));
+            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f*(1f-i/cards.Count), transform.position.z + offset.y);
             cards[i].transform.position = pos;
             
             //don't worry about matrix application because we are properly parented now
@@ -72,6 +81,9 @@ public class DeckRing : MonoBehaviour {
         PlaceCards();
     }
 
+    void Update(){
+        PlaceCards();
+    }
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();
