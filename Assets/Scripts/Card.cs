@@ -29,12 +29,21 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //
+        // TO DO CARD CLONING
+        //
         properties = cardTypes[Random.Range(0,cardTypes.Length)];
         block  = new MaterialPropertyBlock();
         frontRenderer.GetPropertyBlock(block);
         block.SetTexture("_MainTex", properties.frontImage);
         frontRenderer.SetPropertyBlock(block);
     
+    }
+
+    public Card Clone(){
+        Card copy = new Card();
+
+        return copy;
     }
 
     // Update is called once per frame

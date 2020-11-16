@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEngine.UI;
 
 /*
 The Reader class is designed to read the cards submitted by the hand and compare it against
@@ -16,7 +17,7 @@ if not found, boo, we tell them fuck off
 [CreateAssetMenu(fileName = "Reader", menuName = "gtco/Reader", order = 1)]
 public class Reader : ScriptableObject
 {
-    
+
     public TextAsset answerCSV;
     public Dictionary<string,string> answerKey;
 

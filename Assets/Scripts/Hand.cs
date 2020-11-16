@@ -11,6 +11,12 @@ public class Hand : MonoBehaviour
 
     public List<Card> selectedCards;
 
+    public bool[] isFull;
+    public GameObject[] CardSlots;
+
+    [SerializeField]
+    private Reader reader;
+
     public Reader readerObject;
     public Text SentenceText;
     private int NameCounter = 0;
@@ -24,8 +30,6 @@ public class Hand : MonoBehaviour
 
     public GameObject[] HandCards;
     private int HandCounter = 0;
-
-    public GameObject ZoomedCard;
 
     void Start()
     {
@@ -46,7 +50,6 @@ public class Hand : MonoBehaviour
             HandCards[i].SetActive(false);
         }
 
-        ZoomedCard.SetActive(false);
     }
 
     void Update()
@@ -73,21 +76,14 @@ public class Hand : MonoBehaviour
             Invoke("ChangeText" , 3.0f);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            ZoomInCard();
-            //show zoomed in card
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftAlt))
-        {
-            ZoomOutCard();
-            //remove zoomed in card
-        }
-
         if (HandCounter == 5)
         {
-            SentenceText.enabled = true;
+            /*if (readerObject.answerKey.ContainsKey(string key))
+            {
+                SentenceText.text = $"{ readerObject.answerKey}";
+                print("working");
+            }*/
+            //SentenceText.enabled = true;
         }
     }
 
@@ -111,30 +107,35 @@ public class Hand : MonoBehaviour
                 Card target;
                 target = objectHit.parent.GetComponent<Card>();
 
-                if (selectedCards.Count < 5){
+                if (selectedCards.Count < 5)
+                {
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-                    if ((target.Name == "Parvati") && (target.tag == "Card"))
+                    for (int i = 0; i < CardSlots.Length; i++)
                     {
-                        target.gameObject.SetActive(false);
-                        HandCards[0].SetActive(true);
-                        HandCounter = HandCounter + 1;
+                        if (isFull[i] == false)
+                        {
+                            Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                            isFull[i] = true;
+                            HandCounter = HandCounter + 1;
+                            target.tag = "Untagged";
+                            target.gameObject.SetActive(false);
+                            break;
+                            /*if (target.tag == "Card")
+                            {
+                                
+                            }*/
+                        }
                     }
-                    else if (target.Name == "Parvati")
+                    /*if (target.Name == "Parvati")
                     {
                         SentenceText.text = "Parvati ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
                         NameCounter = 1;
                         print(NameCounter);
                     }
 
-                    if ((target.Name == "Seven") && (target.tag == "Card"))
-                    {
-                        target.gameObject.SetActive(false);
-                        HandCards[1].SetActive(true);
-                        HandCounter = HandCounter + 1;
-                    }
-                    else if (target.Name == "Seven")
+                    if (target.Name == "Seven")
                     {
                         if (NameCounter == 1)
                         {
@@ -144,13 +145,7 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if ((target.Name == "Nandi") && (target.tag == "Card"))
-                    {
-                        target.gameObject.SetActive(false);
-                        HandCards[2].SetActive(true);
-                        HandCounter = HandCounter + 1;
-                    }
-                    else if (target.Name == "Nandi")
+                    if (target.Name == "Nandi")
                     {
                         if (NameCounter == 2)
                         {
@@ -160,13 +155,7 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if ((target.Name == "Queen") && (target.tag == "Card"))
-                    {
-                        target.gameObject.SetActive(false);
-                        HandCards[3].SetActive(true);
-                        HandCounter = HandCounter + 1;
-                    }
-                    else if (target.Name == "Queen")
+                    if (target.Name == "Queen")
                     {
                         if (NameCounter == 3)
                         {
@@ -176,13 +165,7 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if ((target.Name == "Shiva") && (target.tag == "Card"))
-                    {
-                        target.gameObject.SetActive(false);
-                        HandCards[4].SetActive(true);
-                        HandCounter = HandCounter + 1;
-                    }
-                    else if (target.Name == "Shiva")
+                    if (target.Name == "Shiva")
                     {
                         if (NameCounter == 4)
                         {
@@ -190,10 +173,11 @@ public class Hand : MonoBehaviour
                             NameCounter = 5;
                             print(NameCounter);
                         }
-                    }
+                    }*/
 
                     //Text = _______ ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not ______’s.
                     //Text full = Parvati uses Nandi's services to protect her right to Privacy at Mt Kailash but Shiva can still access it because Nandi is his servant and not Parvati’s.
+
                 }
                 else
                 {
@@ -251,30 +235,6 @@ public class Hand : MonoBehaviour
             Names[i].enabled = true;
         }
         SentenceText.text = "User uses Smart Device which sends their audio recordings to Amazon/Google despite Users saying ‘No’ in the first place, because they want to improve their AI services.";
-    }
-
-    void ZoomInCard ()
-    {
-        RaycastHit hit4;
-        Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray4, out hit4))
-        {
-            ZoomedCard.SetActive(true);
-            GameObject objectHit = hit4.transform.gameObject;
-
-            Instantiate(objectHit.gameObject, ZoomedCard.transform);
-
-            /*if (hit4.transform.tag == "Card")
-            {
-                Instantiate(hit4.transform.gameObject, ZoomedCard.transform.position, ZoomedCard.transform.rotation);
-                Debug.Log("Zoom In");
-            }*/
-        }
-    }
-
-    void ZoomOutCard ()
-    {
-        ZoomedCard.SetActive(false);
     }
     
     void SubmitHand(){
