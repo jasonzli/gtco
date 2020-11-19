@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Nandi
   m_EditorClassIdentifier: 
   cardName: Nandi
-  cardWord: Crowdsourced App
-  frontImage: {fileID: 2800000, guid: 8d65383cfa787114295a6d106908540c, type: 3}
+  cardWord: Guardian
+  frontImage: {fileID: 2800000, guid: 7a257d06f90461943ac66cc88e194072, type: 3}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Seven
   m_EditorClassIdentifier: 
   cardName: Seven
-  cardWord: Use
-  frontImage: {fileID: 2800000, guid: e525197216172a748aaaa00e4376d6ee, type: 3}
+  cardWord: Movement
+  frontImage: {fileID: 2800000, guid: 708981887dafb7f49894258e19310180, type: 3}

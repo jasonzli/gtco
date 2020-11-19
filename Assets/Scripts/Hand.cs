@@ -8,7 +8,7 @@ using Debug = UnityEngine.Debug;
 
 public class Hand : MonoBehaviour
 {
-
+    //private int LayerMask1 = 1 << 7;
     public List<Card> selectedCards;
 
     public bool[] isFull;
@@ -114,12 +114,15 @@ public class Hand : MonoBehaviour
 
                     for (int i = 0; i < CardSlots.Length; i++)
                     {
-                        if (isFull[i] == false)
+                        if ((isFull[i] == false) && (target.gameObject.layer == 8))
                         {
-                            Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                            GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
                             isFull[i] = true;
                             HandCounter = HandCounter + 1;
-                            target.tag = "Untagged";
+                            NewCard.gameObject.layer = 0;
+                            NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                            NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
+                            //target.tag = "Untagged";
                             target.gameObject.SetActive(false);
                             break;
                             /*if (target.tag == "Card")

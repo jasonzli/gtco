@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1756490663002873449}
   - component: {fileID: 9193833894711643759}
   - component: {fileID: 4662918922363316900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8545095884446549329}
   - component: {fileID: 4209645579420266296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Card
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -140,16 +140,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTypes:
-  - {fileID: 11400000, guid: 8ea1176a48122f7448b01d939e0fc169, type: 2}
-  - {fileID: 11400000, guid: 53a569969a16a5549b4a5d0326943679, type: 2}
-  - {fileID: 11400000, guid: aa2c9ba2314972b429bb7385b33205e3, type: 2}
+  - {fileID: 11400000, guid: 7f863d804ebf5814b8c306846d1fecfa, type: 2}
+  - {fileID: 11400000, guid: e178f6cfd2e3f674884badb31be17bfd, type: 2}
+  - {fileID: 11400000, guid: 28b628a7979169b439787dea46a5941c, type: 2}
   - {fileID: 11400000, guid: e4fefe53ead78b843aafe65be2449170, type: 2}
-  - {fileID: 11400000, guid: f6ae9f0a3b593f14fae8b2735dd32a89, type: 2}
-  - {fileID: 11400000, guid: 4a2c4b282f272644596ed9275b40d074, type: 2}
+  - {fileID: 11400000, guid: 16c6581e093d93e47a89aa7280fa6fcb, type: 2}
+  - {fileID: 11400000, guid: 19d86e3c95f557a4f9af17f4a0d9f4f3, type: 2}
+  - {fileID: 11400000, guid: 7ad1e7d548e17f7408da9c6807e40243, type: 2}
+  - {fileID: 11400000, guid: 42625913a9532e844a213eac4bcb730e, type: 2}
   - {fileID: 11400000, guid: dc9b801c03e186c4dadb060b6c7d0690, type: 2}
   - {fileID: 11400000, guid: 59e8e742d90a5c6429e7861d8f53f277, type: 2}
   - {fileID: 11400000, guid: a7866a7c0e1680943b297b9785bf41b1, type: 2}
-  - {fileID: 11400000, guid: 48d22c3c3c1a36944831ce81d6367be7, type: 2}
+  - {fileID: 11400000, guid: dc5cdeb21f4d5ed46a3a8d95707b5dd1, type: 2}
   rotationSpeed: 60
   frontRenderer: {fileID: 8662281700182428304}
 --- !u!1 &7555219790833105139
@@ -164,7 +166,7 @@ GameObject:
   - component: {fileID: 2573918380102851973}
   - component: {fileID: 8662281700182428304}
   - component: {fileID: 2579558367528702562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}

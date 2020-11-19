@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 310f389f561ef0e49b4f4da424054d10, type: 3}
-  m_Name: Ten
+  m_Name: Nine 2
   m_EditorClassIdentifier: 
-  cardName: Ten
-  cardWord: Choose
-  frontImage: {fileID: 2800000, guid: 1a253a34a05df684b93d197b003d4661, type: 3}
+  cardName: Nine
+  cardWord: Blocks
+  frontImage: {fileID: 2800000, guid: e96eee7d873b5224b9f7bd3975b45f88, type: 3}
