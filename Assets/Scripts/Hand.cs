@@ -112,11 +112,13 @@ public class Hand : MonoBehaviour
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-                    for (int i = 0; i < CardSlots.Length; i++)
+                    for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
                     {
                         if ((isFull[i] == false) && (target.gameObject.layer == 8))
                         {
+
                             GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                            NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
                             isFull[i] = true;
                             HandCounter = HandCounter + 1;
                             NewCard.gameObject.layer = 0;
