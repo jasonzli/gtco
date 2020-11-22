@@ -51,6 +51,8 @@ public class Card : MonoBehaviour
         
     }
 
+
+    //No longer needed Spinning function
     public void Spinning(){
         StartCoroutine(Spin());
     }

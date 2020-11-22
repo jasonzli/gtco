@@ -116,7 +116,7 @@ public class Hand : MonoBehaviour
 
                     for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
                     {
-                        //
+                        //this isFull array is a problem, but jason is not sure how.
                         if ((isFull[i] == false) && (target.gameObject.layer == 8))
                         {
 
