@@ -29,22 +29,21 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //
-        // TO DO CARD CLONING
-        //
-        properties = cardTypes[Random.Range(0,cardTypes.Length)];
-        block  = new MaterialPropertyBlock();
-        frontRenderer.GetPropertyBlock(block);
-        block.SetTexture("_MainTex", properties.frontImage);
-        frontRenderer.SetPropertyBlock(block);
+        //ApplyProperties();
     
     }
 
-    public Card Clone(){
-        Card copy = new Card();
 
-        return copy;
-    }
+
+    //run this function when we get a CardSO that we want to apply data to
+    public void ApplyProperties(CardSO prop){
+        Properties = prop;
+        this.name = Name;
+        block = new MaterialPropertyBlock();
+        frontRenderer.GetPropertyBlock(block);
+        block.SetTexture("_MainTex", properties.frontImage);
+        frontRenderer.SetPropertyBlock(block);
+    }//we don't clone anymore, we get cards and then we apply properties
 
     // Update is called once per frame
     void Update()
@@ -52,6 +51,8 @@ public class Card : MonoBehaviour
         
     }
 
+
+    //No longer needed Spinning function
     public void Spinning(){
         StartCoroutine(Spin());
     }
