@@ -48,6 +48,11 @@ public class DeckRing : MonoBehaviour {
         }
     }
 
+    public void ResetCardRotations(){
+        foreach ( GameObject card in cards){
+            card.transform.localRotation = Quaternion.identity;
+        }
+    }
     
     void PlaceCards(){
         //form a ring around the parent
