@@ -4,11 +4,13 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+using System;
 
 
 public class Hand : MonoBehaviour
 {
 
+    //private int LayerMask1 = 1 << 7;
     public List<Card> selectedCards;
 
     public bool[] isFull;
@@ -28,7 +30,7 @@ public class Hand : MonoBehaviour
     [SerializeField]
     private int handLimit = 5;
 
-    public GameObject[] HandCards;
+    public List<GameObject> HandCards;
     private int HandCounter = 0;
 
     void Start()
@@ -37,7 +39,7 @@ public class Hand : MonoBehaviour
         readerObject.Init();
         SentenceText.GetComponent<Text>();
         SentenceText.enabled = false;
-
+        HandCards = new List<GameObject>();
         Cards.GetComponentInChildren<MeshRenderer>();
 
         for (int i = 0; i < Names.Length; i++)
@@ -45,11 +47,11 @@ public class Hand : MonoBehaviour
             Names[i].enabled = false;
         }
 
-        for (int i = 0; i < HandCards.Length; i++)
-        {
-            HandCards[i].SetActive(false);
-        }
-
+        //at start
+        //go through the readerObject's answerKey and create a list of keys
+        //as keys are found and marked, remove the keys from that List
+        //if the list is equal to zero, then we know we have found all of the reader's keys.
+        //and that should tell the UI "hey I'm mdone wiht this reader!"
     }
 
     void Update()
@@ -112,71 +114,26 @@ public class Hand : MonoBehaviour
                     selectedCards.Add(target);
                     Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-                    for (int i = 0; i < CardSlots.Length; i++)
+                    for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
                     {
-                        if (isFull[i] == false)
+                        //this isFull array is a problem, but jason is not sure how.
+                        if ((isFull[i] == false) && (target.gameObject.layer == 8))
                         {
-                            Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+
+                            GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                            NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
                             isFull[i] = true;
                             HandCounter = HandCounter + 1;
-                            target.tag = "Untagged";
+                            NewCard.gameObject.layer = 0;
+                            NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                            NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
+
+                            HandCards.Add(NewCard);
+                            //target.tag = "Untagged";
                             target.gameObject.SetActive(false);
                             break;
-                            /*if (target.tag == "Card")
-                            {
-                                
-                            }*/
                         }
                     }
-                    /*if (target.Name == "Parvati")
-                    {
-                        SentenceText.text = "Parvati ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
-                        NameCounter = 1;
-                        print(NameCounter);
-                    }
-
-                    if (target.Name == "Seven")
-                    {
-                        if (NameCounter == 1)
-                        {
-                            SentenceText.text = "Parvati uses ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not Parvati’s.";
-                            NameCounter = 2;
-                            print(NameCounter);
-                        }
-                    }
-
-                    if (target.Name == "Nandi")
-                    {
-                        if (NameCounter == 2)
-                        {
-                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but _______ can still ______ it because Nandi is his servant and not Parvati’s.";
-                            NameCounter = 3;
-                            print(NameCounter);
-                        }
-                    }
-
-                    if (target.Name == "Queen")
-                    {
-                        if (NameCounter == 3)
-                        {
-                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but _______ can still access it because Nandi is his servant and not Parvati’s.";
-                            NameCounter = 4;
-                            print(NameCounter);
-                        }
-                    }
-
-                    if (target.Name == "Shiva")
-                    {
-                        if (NameCounter == 4)
-                        {
-                            SentenceText.text = "Parvati uses Nandi's services to protect her right to privacy at Mt Kailash but Shiva can still access it because Nandi is his servant and not Parvati’s.";
-                            NameCounter = 5;
-                            print(NameCounter);
-                        }
-                    }*/
-
-                    //Text = _______ ______ ______'s services to protect her right to privacy at Mt Kailash but _______ can still ______ it because _______ is his servant and not ______’s.
-                    //Text full = Parvati uses Nandi's services to protect her right to Privacy at Mt Kailash but Shiva can still access it because Nandi is his servant and not Parvati’s.
 
                 }
                 else
@@ -239,7 +196,17 @@ public class Hand : MonoBehaviour
     
     void SubmitHand(){
         //Do something with another thing that reads the hand
+
+        //reader.ReadHand(hand) or something similar
+        //if valid do something with it in ui text
+        //if not then do something else
+
+        //This should be where the List UI check of the answer key choices should be
+        
+        readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
+
     }
+
     void AddCard(Card card){
         if (selectedCards.Count > handLimit){
             Debug.Log("Hand is full");
@@ -262,7 +229,23 @@ public class Hand : MonoBehaviour
 
     public void ClearHand(){
         //empty the hand object
-        readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
+
+        SubmitHand();
+
+        //Restore the original cards
+        foreach( Card c in selectedCards){
+            
+            c.gameObject.SetActive(true);
+            c.transform.localRotation = Quaternion.identity;
+        }
+        foreach( GameObject go in HandCards){
+            GameObject.Destroy(go);
+        }
+        for (var i = 0; i < CardSlots.Length; i++){
+            isFull[i] = false;
+        }
+        HandCounter = 0;
+
         selectedCards.Clear();
     }
 }

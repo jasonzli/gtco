@@ -48,7 +48,7 @@ public class Reader : ScriptableObject
     }
 
     //this function takes an arbitrary set of selections and then *does something else*
-    public bool ReadHand(List<Card> hand){
+    public string ReadHand(List<Card> hand){
 
 
         string key = "";
@@ -61,10 +61,10 @@ public class Reader : ScriptableObject
         //if we find one, return true or otherwise we exit.
         if (answerKey.ContainsKey(key)){
             Debug.Log($"{key} found, the answer is {answerKey[key]}");
-            return true;
+            return answerKey[key];
         }
 
         Debug.Log($"{key} not found");
-        return false;
+        return key;
     }
 }

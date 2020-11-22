@@ -23,12 +23,7 @@ public class DeckRing : MonoBehaviour {
     public List<GameObject> cards = new List<GameObject>();
 
     [SerializeField]
-    public float spiralRotation = 1f;
-    [SerializeField]
-    public float size = 4f;
-    [SerializeField]
-    [Range(0.01f, 20f)]
-    public float k = .1f;
+    public float radius = 1f;
 
     CardSO FindCardTypeByName(string name, List<CardSO> list){
         CardSO type = null;
@@ -46,25 +41,30 @@ public class DeckRing : MonoBehaviour {
                 GameObject o = Instantiate(cardPrefab);
                 o.transform.SetParent(transform);
                 o.name = cardPair.Key;
-                o.GetComponent<Card>().Properties = FindCardTypeByName(cardPair.Key, cardTypes);
+                CardSO prop =  FindCardTypeByName(cardPair.Key, cardTypes);
+                o.GetComponent<Card>().ApplyProperties( prop );
                 cards.Add(o);
             }
         }
     }
 
+    public void ResetCardRotations(){
+        foreach ( GameObject card in cards){
+            card.transform.localRotation = Quaternion.identity;
+        }
+    }
     
     void PlaceCards(){
         //form a ring around the parent
         //also apply the matrix to the position.
         for (int i = 0; i < cards.Count; i++){
-          //  float a = i * Mathf.PI * 2f / cards.Count * spirals;
-           // float r = radius * i / cards.Count;
-           // float r = radius * Mathf.Exp(a * .25f) * i/ cards.Count;
-            float a = Mathf.Log(k* spiralRotation * (i+.01f) / cards.Count)/k; 
-            float r = size * i / cards.Count;
-            Vector2 offset = new Vector2( r * Mathf.Cos(a), r * Mathf.Sin(a));
-            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f*(1f-i/cards.Count), transform.position.z + offset.y);
+
+            float a = i * Mathf.PI * 2f / cards.Count;
+            Vector2 offset = new Vector2( radius * Mathf.Cos(a), radius * Mathf.Sin(a));
+            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f * i / cards.Count, transform.position.z + offset.y);
             cards[i].transform.position = pos;
+            
+
             
             //don't worry about matrix application because we are properly parented now
             // Matrix4x4 parentMat = transform.localToWorldMatrix;
@@ -87,16 +87,18 @@ public class DeckRing : MonoBehaviour {
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();
-        d.Add("Ace", 2);
-        d.Add("Jack", 3);
-        d.Add("King", 4);
-        d.Add("Nandi", 1);
-        d.Add("Nine", 2);
-        d.Add("Parvati", 4);
-        d.Add("Queen",3);
-        d.Add("Seven", 2);
-        d.Add("Shiva", 1);
-        d.Add("Ten",3);
+        d.Add("AceC", 1);
+        d.Add("NineC", 2);
+        d.Add("NineD", 2);
+        d.Add("NineS", 2);
+        d.Add("EightD", 2);
+        d.Add("EightH", 2);
+        d.Add("EightC", 2);
+        d.Add("QueenC",3);
+        d.Add("QueenH",3);
+        d.Add("SevenH", 2);
+        d.Add("KingH", 1);
+        d.Add("SixC",3);
         
 
 
@@ -104,3 +106,14 @@ public class DeckRing : MonoBehaviour {
     }
     
 }
+
+/*
+//  float a = i * Mathf.PI * 2f / cards.Count * spirals;
+           // float r = radius * i / cards.Count;
+           // float r = radius * Mathf.Exp(a * .25f) * i/ cards.Count;
+            float a = Mathf.Log(k* spiralRotation * (i+.01f) / cards.Count)/k; 
+            float r = size * i / cards.Count;
+            Vector2 offset = new Vector2( r * Mathf.Cos(a), r * Mathf.Sin(a));
+            Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f*(1f-i/cards.Count), transform.position.z + offset.y);
+           
+*/

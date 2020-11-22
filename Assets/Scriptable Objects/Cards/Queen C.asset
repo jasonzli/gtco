@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 310f389f561ef0e49b4f4da424054d10, type: 3}
-  m_Name: Queen
+  m_Name: Queen C
   m_EditorClassIdentifier: 
-  cardName: Queen
-  cardWord: Own
-  frontImage: {fileID: 2800000, guid: fe058c20b25ff5e46956fe93eca9d6e6, type: 3}
+  cardName: QueenC
+  cardWord: Resident
+  frontImage: {fileID: 2800000, guid: 28a961225c7dbd3459f30d3d23ade41a, type: 3}
