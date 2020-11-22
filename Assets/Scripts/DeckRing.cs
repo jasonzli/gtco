@@ -82,19 +82,18 @@ public class DeckRing : MonoBehaviour {
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();
-        d.Add("Nandi", 1);
-        //Convert file names to match suits
-        d.Add("Nine 1", 2);
-        d.Add("Nine 2", 2);
-        d.Add("Nine 3", 2);
-        d.Add("Eight 1", 2);
-        d.Add("Eight 2", 2);
-        d.Add("Eight 3", 2);
+        d.Add("AceC", 1);
+        d.Add("NineC", 2);
+        d.Add("NineD", 2);
+        d.Add("NineS", 2);
+        d.Add("EightD", 2);
+        d.Add("EightH", 2);
+        d.Add("EightC", 2);
         d.Add("QueenC",3);
         d.Add("QueenH",3);
-        d.Add("Seven", 2);
-        d.Add("Shiva", 1);
-        d.Add("Six",3);
+        d.Add("SevenH", 2);
+        d.Add("KingH", 1);
+        d.Add("SixC",3);
         
 
 

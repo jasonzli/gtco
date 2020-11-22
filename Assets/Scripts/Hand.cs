@@ -50,6 +50,11 @@ public class Hand : MonoBehaviour
             HandCards[i].SetActive(false);
         }
 
+        //at start
+        //go through the readerObject's answerKey and create a list of keys
+        //as keys are found and marked, remove the keys from that List
+        //if the list is equal to zero, then we know we have found all of the reader's keys.
+        //and that should tell the UI "hey I'm mdone wiht this reader!"
     }
 
     void Update()
@@ -244,6 +249,10 @@ public class Hand : MonoBehaviour
     
     void SubmitHand(){
         //Do something with another thing that reads the hand
+
+        //reader.ReadHand(hand) or something similar
+        //if valid do something with it in ui text
+        //if not then do something else
     }
     void AddCard(Card card){
         if (selectedCards.Count > handLimit){

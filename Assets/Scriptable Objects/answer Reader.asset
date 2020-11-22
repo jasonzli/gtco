@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 310f389f561ef0e49b4f4da424054d10, type: 3}
-  m_Name: Queen C
+  m_Script: {fileID: 11500000, guid: b1c8587b9c20f60498af879d84ea00d1, type: 3}
+  m_Name: answer Reader
   m_EditorClassIdentifier: 
-  cardName: QueenC
-  cardWord: Resident
-  frontImage: {fileID: 2800000, guid: 28a961225c7dbd3459f30d3d23ade41a, type: 3}
+  answerCSV: {fileID: 0}
