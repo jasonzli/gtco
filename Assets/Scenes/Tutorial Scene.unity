@@ -1158,10 +1158,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59e8e742d90a5c6429e7861d8f53f277, type: 2}
   - {fileID: 11400000, guid: a7866a7c0e1680943b297b9785bf41b1, type: 2}
   - {fileID: 11400000, guid: dc5cdeb21f4d5ed46a3a8d95707b5dd1, type: 2}
+  - {fileID: 11400000, guid: 765739ea4dbb5494eb9fffc89783dd90, type: 2}
   cardPrefab: {fileID: 6903622696572655656, guid: 2999d0d5c3bcf614ba9b1c371fb875d2,
     type: 3}
   cards: []
-  radius: 20
+  radius: 45
 --- !u!4 &1445365282
 Transform:
   m_ObjectHideFlags: 0
@@ -1241,7 +1242,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 240, y: 490}
+  m_SizeDelta: {x: 249, y: 508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1576916251
 MonoBehaviour:
@@ -1615,7 +1616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1853291943}
   - component: {fileID: 1853291944}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ZoomCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

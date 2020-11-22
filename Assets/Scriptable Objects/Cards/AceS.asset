@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 310f389f561ef0e49b4f4da424054d10, type: 3}
-  m_Name: SevenH
+  m_Name: AceS
   m_EditorClassIdentifier: 
-  cardName: SevenH
-  cardWord: Movement
-  frontImage: {fileID: 2800000, guid: 708981887dafb7f49894258e19310180, type: 3}
+  cardName: AceS
+  cardWord: Guardian
+  frontImage: {fileID: 2800000, guid: f3f89de7b0d469e4f96488f7e6fb670b, type: 3}

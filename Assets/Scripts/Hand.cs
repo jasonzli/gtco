@@ -196,7 +196,7 @@ public class Hand : MonoBehaviour
     
     void SubmitHand(){
         //Do something with another thing that reads the hand
-
+        print("WORKING");
         //reader.ReadHand(hand) or something similar
         //if valid do something with it in ui text
         //if not then do something else
