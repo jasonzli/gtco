@@ -66,17 +66,15 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 16891e7cb6d10a34697e0f802a7981f8, type: 3}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "_______ ______ ______'s services to protect her right to privacy at Mt
-    Kailash but _______ can still ______ it because _______ is his servant and not
-    ______\u2019s.\r\n                    "
+  m_Text: "SENTENCE TEXT\n                    "

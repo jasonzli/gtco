@@ -5,11 +5,14 @@ using UnityEngine;
 public class Zoomer : MonoBehaviour
 {
     public GameObject ZoomedCard;
+
+    private GameObject Zoom;
     // Start is called before the first frame update
     void Start()
     {
 
         ZoomedCard.SetActive(false);
+                
         //ZoomedCard.SetActive(false);
     }
 
@@ -36,10 +39,22 @@ public class Zoomer : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             ZoomedCard.SetActive(true);
-            MeshRenderer objectHit = hit.transform.gameObject.GetComponent<MeshRenderer>();
 
-            Instantiate(objectHit.gameObject.GetComponent<MeshRenderer>(), ZoomedCard.transform);
-            Debug.Log("Zoom In");
+            Transform ObjHit = hit.transform; //.gameObject.GetComponent<MeshRenderer>();
+
+            if (ObjHit.name == "Front")
+            {
+                Card tempcard;
+                tempcard = ObjHit.parent.GetComponent<Card>();
+                Zoom = Instantiate(tempcard.gameObject, ZoomedCard.transform.position, ZoomedCard.transform.rotation);
+                Zoom.GetComponent<Card>().ApplyProperties(tempcard.Properties);
+                Zoom.gameObject.layer = 9;
+                Zoom.gameObject.transform.GetChild(0).gameObject.layer = 9;
+                Zoom.gameObject.transform.GetChild(1).gameObject.layer = 9;
+                Debug.Log("Zoom In");
+            }
+            //Instantiate(objectHit.gameObject.GetComponent<MeshRenderer>(), ZoomedCard.transform);
+            //Debug.Log("Zoom In");
 
             /*if ((objectHit.name == "Front"))
             {
@@ -67,6 +82,7 @@ public class Zoomer : MonoBehaviour
     void ZoomOutCard()
     {
         ZoomedCard.SetActive(false);
+        GameObject.Destroy(Zoom);
     }
 
 }

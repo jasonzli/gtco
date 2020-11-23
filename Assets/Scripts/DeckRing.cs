@@ -98,7 +98,8 @@ public class DeckRing : MonoBehaviour {
         d.Add("QueenH",3);
         d.Add("SevenH", 2);
         d.Add("KingH", 1);
-        d.Add("SixC",3);
+        d.Add("SixC",2);
+        d.Add("AceS", 1);
         
 
 
