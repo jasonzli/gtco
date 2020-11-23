@@ -10,7 +10,6 @@ using System;
 public class Hand : MonoBehaviour
 {
 
-    //private int LayerMask1 = 1 << 7;
     public List<Card> selectedCards;
 
     public bool[] isFull;
@@ -25,13 +24,18 @@ public class Hand : MonoBehaviour
 
     public Text[] Names;
 
-    public GameObject Cards;
-
     [SerializeField]
     private int handLimit = 5;
 
     public List<GameObject> HandCards;
     private int HandCounter = 0;
+
+    public Text PromptText;
+
+    public Text Score;
+    private int S;
+
+    public List<Card> Key { get; private set; }
 
     void Start()
     {
@@ -40,13 +44,14 @@ public class Hand : MonoBehaviour
         SentenceText.GetComponent<Text>();
         SentenceText.enabled = false;
         HandCards = new List<GameObject>();
-        Cards.GetComponentInChildren<MeshRenderer>();
 
         for (int i = 0; i < Names.Length; i++)
         {
             Names[i].enabled = false;
         }
-
+        PromptText.GetComponent<Text>();
+        S = 0;
+        Score.GetComponent<Text>();
         //at start
         //go through the readerObject's answerKey and create a list of keys
         //as keys are found and marked, remove the keys from that List
@@ -78,15 +83,7 @@ public class Hand : MonoBehaviour
             Invoke("ChangeText" , 3.0f);
         }
 
-        if (HandCounter == 5)
-        {
-            /*if (readerObject.answerKey.ContainsKey(string key))
-            {
-                SentenceText.text = $"{ readerObject.answerKey}";
-                print("working");
-            }*/
-            //SentenceText.enabled = true;
-        }
+        Score.text = S + "/4";
     }
 
     void CastRay()
@@ -135,6 +132,59 @@ public class Hand : MonoBehaviour
                         }
                     }
 
+                    if (selectedCards.Count == 2)
+                    {
+                        if ((selectedCards[0].name == "EightC") && (selectedCards[1].name == "KingH"))
+                        {
+                            SentenceText.enabled = true;
+                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";                           
+                        }
+                    }
+
+                    if (selectedCards.Count == 3)
+                    {
+                        if ((selectedCards[0].name == "QueenH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "EightD"))
+                        {
+                            SentenceText.enabled = true;
+                            SentenceText.text = "Parvati knows that the existence of Mount Kailash extends from her being.";
+                            PromptText.text = "Search for three cards... First is a 'face' different from the earlier one and the rest are 'verb' cards, one of them same as the previous one.";
+                            S = 1;
+                        }
+
+                        if ((selectedCards[0].name == "KingH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "NineC"))
+                        {
+                            SentenceText.enabled = true;
+                            SentenceText.text = "Shiva sees all on Mount Kailash as a domain that belongs to him.";
+                            PromptText.text = "Search for three cards... First two are 'verb' cards and the third is a return of a familiar 'face' card.";
+                            S = 2;
+                       }
+
+                        if ((selectedCards[0].name == "SixC") && (selectedCards[1].name == "EightD") && (selectedCards[2].name == "QueenH"))
+                        {
+                            SentenceText.enabled = true;
+                            SentenceText.text = "Data is an extension of a user's behavior online on websites like Google's.";
+                            PromptText.text = "Search for three cards... First is the 'face' card from a couple turns before, rest two are 'verb' cards.";
+                            S = 3;
+                        }
+
+                        if ((selectedCards[0].name == "KingH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "NineD"))
+                        {
+                            SentenceText.enabled = true;
+                            SentenceText.text = "Google sees data produced on their websites as items whose ownership they rightfully retain.";
+                            S = 4;
+                        }
+                    }
+
+                    if (selectedCards.Count == 5)
+                    {
+                        if ((selectedCards[0].name == "QueenC") && (selectedCards[1].name == "EightH") && (selectedCards[2].name == "AceC")
+                        && (selectedCards[3].name == "NineS") && (selectedCards[4].name == "SevenH"))
+                        {
+                            print("Doing!");
+                            SentenceText.enabled = true;
+                            SentenceText.text = "Parvati trusts Nandi as guardian to protect her wish for privacy whilst bathing.";
+                        }
+                    }
                 }
                 else
                 {
@@ -245,7 +295,7 @@ public class Hand : MonoBehaviour
             isFull[i] = false;
         }
         HandCounter = 0;
-
+        SentenceText.enabled = false;
         selectedCards.Clear();
     }
 }
