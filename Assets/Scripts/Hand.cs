@@ -137,7 +137,7 @@ public class Hand : MonoBehaviour
                         if ((selectedCards[0].name == "EightC") && (selectedCards[1].name == "KingH"))
                         {
                             SentenceText.enabled = true;
-                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";                           
+                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";
                         }
                     }
 
@@ -157,7 +157,7 @@ public class Hand : MonoBehaviour
                             SentenceText.text = "Shiva sees all on Mount Kailash as a domain that belongs to him.";
                             PromptText.text = "Search for three cards... First two are 'verb' cards and the third is a return of a familiar 'face' card.";
                             S = 2;
-                       }
+                        }
 
                         if ((selectedCards[0].name == "SixC") && (selectedCards[1].name == "EightD") && (selectedCards[2].name == "QueenH"))
                         {
@@ -247,12 +247,18 @@ public class Hand : MonoBehaviour
     void SubmitHand(){
         //Do something with another thing that reads the hand
         print("WORKING");
+        /*if (selectedCards.Count == 5)
+        {
+            SentenceText.enabled = true;
+            SentenceText.text = reader.ReadHand(Key);
+
+        }*/
         //reader.ReadHand(hand) or something similar
         //if valid do something with it in ui text
         //if not then do something else
 
         //This should be where the List UI check of the answer key choices should be
-        
+
         readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
 
     }
