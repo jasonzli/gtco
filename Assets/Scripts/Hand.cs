@@ -28,7 +28,9 @@ public class Hand : MonoBehaviour
     private int handLimit = 5;
 
     public List<GameObject> HandCards;
-    private int HandCounter = 0;
+
+    [SerializeField]
+    public int HandCounter = 0;
 
     public Text PromptText;
 
@@ -66,11 +68,12 @@ public class Hand : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             CastRay();
+            FlipCard();
         }
 
         if (Input.GetMouseButtonDown(1)) 
         {
-            FlipCard();
+            //FlipCard();
         }
 
         if (Input.GetMouseButtonDown(2))
@@ -199,11 +202,11 @@ public class Hand : MonoBehaviour
 
     void FlipCard()
     {
-        RaycastHit hit2;
-        Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray2, out hit2))
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
         {
-            Transform objectHit = hit2.transform;
+            Transform objectHit = hit.transform;
 
             if ((objectHit.name == "Front") || (objectHit.name == "Back"))
             {

@@ -1529,6 +1529,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 6903622696572655656, guid: 2999d0d5c3bcf614ba9b1c371fb875d2,
     type: 3}
   cards: []
+  hand: {fileID: 1673178097}
   radius: 45
 --- !u!4 &1445365282
 Transform:
@@ -1786,7 +1787,7 @@ MonoBehaviour:
   - {fileID: 238763035}
   - {fileID: 1026934453}
   - {fileID: 815518905}
-  reader: {fileID: 0}
+  reader: {fileID: 11400000, guid: 0c4018dc09b2484458ddebbe3c476c6b, type: 2}
   readerObject: {fileID: 11400000, guid: d42885e383d1f8b4b991cc838611575a, type: 2}
   SentenceText: {fileID: 2005243007}
   Names:
@@ -1802,6 +1803,7 @@ MonoBehaviour:
   - {fileID: 970375611}
   - {fileID: 2069487264}
   - {fileID: 1143766163}
+  HandCounter: 0
   PromptText: {fileID: 314196232}
   Score: {fileID: 436724586}
 --- !u!4 &1673178098
