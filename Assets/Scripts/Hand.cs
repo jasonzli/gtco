@@ -28,7 +28,9 @@ public class Hand : MonoBehaviour
     private int handLimit = 5;
 
     public List<GameObject> HandCards;
-    private int HandCounter = 0;
+
+    [SerializeField]
+    public int HandCounter = 0;
 
     public Text PromptText;
 
@@ -66,11 +68,12 @@ public class Hand : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             CastRay();
+            FlipCard();
         }
 
         if (Input.GetMouseButtonDown(1)) 
         {
-            FlipCard();
+            //FlipCard();
         }
 
         if (Input.GetMouseButtonDown(2))
@@ -137,7 +140,7 @@ public class Hand : MonoBehaviour
                         if ((selectedCards[0].name == "EightC") && (selectedCards[1].name == "KingH"))
                         {
                             SentenceText.enabled = true;
-                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";                           
+                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";
                         }
                     }
 
@@ -157,7 +160,7 @@ public class Hand : MonoBehaviour
                             SentenceText.text = "Shiva sees all on Mount Kailash as a domain that belongs to him.";
                             PromptText.text = "Search for three cards... First two are 'verb' cards and the third is a return of a familiar 'face' card.";
                             S = 2;
-                       }
+                        }
 
                         if ((selectedCards[0].name == "SixC") && (selectedCards[1].name == "EightD") && (selectedCards[2].name == "QueenH"))
                         {
@@ -199,11 +202,11 @@ public class Hand : MonoBehaviour
 
     void FlipCard()
     {
-        RaycastHit hit2;
-        Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray2, out hit2))
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
         {
-            Transform objectHit = hit2.transform;
+            Transform objectHit = hit.transform;
 
             if ((objectHit.name == "Front") || (objectHit.name == "Back"))
             {
@@ -247,12 +250,18 @@ public class Hand : MonoBehaviour
     void SubmitHand(){
         //Do something with another thing that reads the hand
         print("WORKING");
+        /*if (selectedCards.Count == 5)
+        {
+            SentenceText.enabled = true;
+            SentenceText.text = reader.ReadHand(Key);
+
+        }*/
         //reader.ReadHand(hand) or something similar
         //if valid do something with it in ui text
         //if not then do something else
 
         //This should be where the List UI check of the answer key choices should be
-        
+
         readerObject.ReadHand(selectedCards);///THIS ABSOLUTELY SHOULD NOT BE HERE
 
     }
