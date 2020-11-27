@@ -6,9 +6,12 @@ using EasyButtons;
 
 [CreateAssetMenu(fileName = "SentencePuzzle", menuName = "gtco/Sentence Puzzle", order = 2)]
 public class SentencePuzzle : ScriptableObject {
+    [Header("CSV Settings")]
     
     public TextAsset puzzleIdentityCSV;
+    public bool ReadFromCSV = false;
 
+    [Header("Puzzle Details")]
     //Example _ knows that the existence of _ _ from her being.
     [SerializeField]
     private string blankSentence;
@@ -47,7 +50,11 @@ public class SentencePuzzle : ScriptableObject {
 
     }
     public void Init(){
-        CreateSentences(puzzleIdentityCSV);
+        if (ReadFromCSV) {
+            Clear();
+            CreateSentences(puzzleIdentityCSV);
+        }
+
         UpdatePartialSentence();
         Debug.Log(PartialSentence);
     }
@@ -90,8 +97,8 @@ public class SentencePuzzle : ScriptableObject {
         int validSelections = 0;
         for ( int i = 0 ; i < keyLen ; i++ ){
             //pass if the selection doesn't exist
-            if (Selections[i] == null){
-                continue;
+            if (i >= Selections.Count){//if we are at the end of the selections count
+                break;
             }
 
             //check against key in the same position
@@ -144,18 +151,10 @@ public class SentencePuzzle : ScriptableObject {
         return true;
     }
 
-        //tab separated
-        //this will be tabbed into three things
-        //myth, blank, data, keys
-        // Dictionary<string,string> result = new Dictionary<string, string>();
-
-        // string[] records = csv.text.Split(lineSeparater);
-
-        // foreach( string record in records ){
-        //     string[] fields = record.Split(fieldSeparater);
-
-        //     result.Add(fields[0],fields[1]);
-        // }
+    void ResetSelections(){
+        Selections.Clear();
+        Solved = false;
+    }
 
     ///////////////////////
     ///
