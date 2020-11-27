@@ -11,7 +11,6 @@ public class SentenceTester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sp.Clear();
         sp.Init();
 
         sp.AddSelection(c1);

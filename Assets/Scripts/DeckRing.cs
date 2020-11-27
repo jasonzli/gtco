@@ -9,7 +9,7 @@ The ring should have the following properties
  * a location
  * possibly an ability to move
 */
-//using UnityEngine;
+
 
 //[CreateAssetMenu(fileName = "DeckRing", menuName = "gtco/DeckRing", order = 1)]
 public class DeckRing : MonoBehaviour {
@@ -80,6 +80,7 @@ public class DeckRing : MonoBehaviour {
 
     void FlippedCards()
     {
+        if ( )
         if (hand.HandCounter == 0)
         {
             cards[0].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
@@ -118,6 +119,13 @@ public class DeckRing : MonoBehaviour {
 
 
         return d;
+    }
+
+    public bool DeleteCards(){
+        foreach( GameObject c in cards ){
+            Destroy(c);
+        }
+        return true;
     }
     
 }
