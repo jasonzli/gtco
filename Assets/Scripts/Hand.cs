@@ -37,6 +37,9 @@ public class Hand : MonoBehaviour
     public Text Score;
     private int S;
 
+    [SerializeField]
+    private SentencePuzzle sp;
+
     public List<Card> Key { get; private set; }
 
     void Start()
@@ -44,16 +47,20 @@ public class Hand : MonoBehaviour
         selectedCards = new List<Card>();
         readerObject.Init();
         SentenceText.GetComponent<Text>();
-        SentenceText.enabled = false;
+        //SentenceText.enabled = false;
         HandCards = new List<GameObject>();
 
-        for (int i = 0; i < Names.Length; i++)
+        /*for (int i = 0; i < Names.Length; i++)
         {
             Names[i].enabled = false;
-        }
+        }*/
         PromptText.GetComponent<Text>();
         S = 0;
         Score.GetComponent<Text>();
+
+        sp.ClearSelections();
+        sp.Init();
+        SentenceText.text = sp.PartialSentence;
         //at start
         //go through the readerObject's answerKey and create a list of keys
         //as keys are found and marked, remove the keys from that List
@@ -71,10 +78,10 @@ public class Hand : MonoBehaviour
             FlipCard();
         }
 
-        if (Input.GetMouseButtonDown(1)) 
+        /*if (Input.GetMouseButtonDown(1)) 
         {
-            //FlipCard();
-        }
+            FlipCard();
+        }*/
 
         if (Input.GetMouseButtonDown(2))
         {
@@ -96,7 +103,7 @@ public class Hand : MonoBehaviour
         // Ray2D ray = new Ray2D(transform.position, transform.forward);
         // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-        //if we hit 
+        //if we hit
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -108,6 +115,9 @@ public class Hand : MonoBehaviour
                 
                 Card target;
                 target = objectHit.parent.GetComponent<Card>();
+                sp.AddSelection(target);
+                SentenceText.text = sp.PartialSentence;
+                //sp.UpdatePartialSentence();
 
                 if (selectedCards.Count < 5)
                 {
@@ -135,7 +145,7 @@ public class Hand : MonoBehaviour
                         }
                     }
 
-                    if (selectedCards.Count == 2)
+                    /*if (selectedCards.Count == 2)
                     {
                         if ((selectedCards[0].name == "EightC") && (selectedCards[1].name == "KingH"))
                         {
@@ -187,7 +197,7 @@ public class Hand : MonoBehaviour
                             SentenceText.enabled = true;
                             SentenceText.text = "Parvati trusts Nandi as guardian to protect her wish for privacy whilst bathing.";
                         }
-                    }
+                    }*/
                 }
                 else
                 {
@@ -208,7 +218,7 @@ public class Hand : MonoBehaviour
         {
             Transform objectHit = hit.transform;
 
-            if ((objectHit.name == "Front") || (objectHit.name == "Back"))
+            if (/*(objectHit.name == "Front") || */(objectHit.name == "Back"))
             {
                 Card target;
 
@@ -304,7 +314,7 @@ public class Hand : MonoBehaviour
             isFull[i] = false;
         }
         HandCounter = 0;
-        SentenceText.enabled = false;
+        //SentenceText.enabled = false;
         selectedCards.Clear();
     }
 }
