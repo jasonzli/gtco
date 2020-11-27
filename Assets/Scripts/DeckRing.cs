@@ -9,7 +9,7 @@ The ring should have the following properties
  * a location
  * possibly an ability to move
 */
-using UnityEngine;
+//using UnityEngine;
 
 //[CreateAssetMenu(fileName = "DeckRing", menuName = "gtco/DeckRing", order = 1)]
 public class DeckRing : MonoBehaviour {
@@ -21,6 +21,9 @@ public class DeckRing : MonoBehaviour {
     public GameObject cardPrefab; 
 
     public List<GameObject> cards = new List<GameObject>();
+
+    [SerializeField]
+    private Hand hand;
 
     [SerializeField]
     public float radius = 1f;
@@ -57,18 +60,29 @@ public class DeckRing : MonoBehaviour {
     void PlaceCards(){
         //form a ring around the parent
         //also apply the matrix to the position.
-        for (int i = 0; i < cards.Count; i++){
+        for (int i = 0; i < cards.Count; i++)
+        {
 
             float a = i * Mathf.PI * 2f / cards.Count;
-            Vector2 offset = new Vector2( radius * Mathf.Cos(a), radius * Mathf.Sin(a));
+            Vector2 offset = new Vector2(radius * Mathf.Cos(a), radius * Mathf.Sin(a));
             Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f * i / cards.Count, transform.position.z + offset.y);
             cards[i].transform.position = pos;
-            
+            //cards[i].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
 
-            
+
+
             //don't worry about matrix application because we are properly parented now
             // Matrix4x4 parentMat = transform.localToWorldMatrix;
             // cards[i].transform.position = parentMat.MultiplyVector(pos);
+        }
+        FlippedCards();
+    }
+
+    void FlippedCards()
+    {
+        if (hand.HandCounter == 0)
+        {
+            cards[0].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
         }
     }
 
