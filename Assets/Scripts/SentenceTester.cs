@@ -15,8 +15,13 @@ public class SentenceTester : MonoBehaviour
         sp.Init();
 
         sp.AddSelection(c1);
-
         Debug.Log(sp.PartialSentence);
+        sp.AddSelection(c2);
+        Debug.Log(sp.PartialSentence);
+        sp.AddSelection(c3);
+        Debug.Log(sp.PartialSentence);
+
+        Debug.Log( sp.CheckKeys() );
 
     }
 
