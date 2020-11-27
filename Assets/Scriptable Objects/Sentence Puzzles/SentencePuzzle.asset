@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: SentencePuzzle
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
-  ReadFromCSV: 0
-  blankSentence: _ sees all on _ as a domain that _ to him.
-  mythSentence: Shiva sees all on Mount Kailash as a domain that belongs to him.
-  dataSentence: "Google sees data produced on their websites as items who\u2019s
-    ownership they rightfully retain."
+  blankSentence: _ knows that the existence of _ _ from her being.
+  mythSentence: Parvati knows that the existence of Mount Kailash extends from her
+    being.
+  dataSentence: "Data is an extension of a user\u2019s behavior online on websites
+    like Google\u2019s."
   Keys:
-  - KingH
+  - QueenH
   - SixC
-  - NineC
-  Selections: []
+  - EightD
+  Selections:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
