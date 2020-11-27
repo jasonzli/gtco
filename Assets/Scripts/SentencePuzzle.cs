@@ -67,13 +67,17 @@ public class SentencePuzzle : ScriptableObject {
     }
 
     //add cards to the selection
-    public bool AddSelection(Card card){
+    public bool AddSelection(Card choice){
         if (Selections.Count + 1  > Keys.Count) {
             Debug.Log("puzzle selections are full! you should clear before this!");
             return false;
         }
+        if (!Keys.Contains(choice.Name)){
+            Debug.Log("This key is invalid!");
+            return false;
+        }
 
-        Selections.Add(card);//add cards
+        Selections.Add(choice);//add cards
         UpdatePartialSentence();//update partial sentence
         return true;
     }

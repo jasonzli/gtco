@@ -23,8 +23,8 @@ public class Card : MonoBehaviour
     MaterialPropertyBlock block;
 
     //properties from the scriptable object instead of being stored here
-    public string Name{ get {return this.properties.cardName;}}
-    public string Word{ get {return this.properties.cardWord;}}
+    public string Name{ get {return properties.cardName;}}
+    public string Word{ get {return properties.cardWord;}}
 
     [SerializeField]
     private bool DebugType = false;
