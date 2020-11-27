@@ -50,7 +50,6 @@ public class Reader : ScriptableObject
     //this function takes an arbitrary set of selections and then *does something else*
     public string ReadHand(List<Card> hand){
 
-
         string key = "";
 
         //this is a naive (incorrect) key assembly
