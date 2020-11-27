@@ -80,7 +80,6 @@ public class DeckRing : MonoBehaviour {
 
     void FlippedCards()
     {
-        if ( )
         if (hand.HandCounter == 0)
         {
             cards[0].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
