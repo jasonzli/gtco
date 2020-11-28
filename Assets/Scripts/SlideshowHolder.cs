@@ -21,13 +21,12 @@ public class SlideshowHolder : MonoBehaviour
 
     public bool Finished{get; private set;}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Assert(imageUI != null);
-        imageUI.enabled = false;
-        EndShow += test;
-    }
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     Debug.Assert(imageUI != null);
+    //     imageUI.enabled = false;
+    // }
 
     [Button]
     public void StartSlides(){
@@ -62,11 +61,6 @@ public class SlideshowHolder : MonoBehaviour
         Debug.Log("hello action");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
 }

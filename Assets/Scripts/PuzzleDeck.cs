@@ -36,12 +36,14 @@ public class PuzzleDeck : MonoBehaviour {
             //now initialize key cards from sp
             foreach ( string key in sp.Keys ){
                 GameObject go = createCard(typeSO.FindCardTypeByName(key));
+                go.transform.SetParent(transform);
                 cards.Add(go);
             }
         }
     }
     GameObject createCard(CardSO properties){
         GameObject go = Instantiate(cardPrefab);
+
         go.name = properties.name;
         go.GetComponent<Card>().ApplyProperties(properties);
         return go;
