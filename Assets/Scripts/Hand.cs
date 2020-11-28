@@ -67,6 +67,19 @@ public class Hand : MonoBehaviour
         //if the list is equal to zero, then we know we have found all of the reader's keys.
         //and that should tell the UI "hey I'm mdone wiht this reader!"
     }
+    /*
+    void HandleCardChoice(GameObject choice)
+    {
+        if (!handful)
+        {
+            AddCardToHand(go);
+        }
+        else
+        {
+            SubmitCardToSelection(go);
+        }
+    }
+    */
 
     void Update()
     {
@@ -74,14 +87,25 @@ public class Hand : MonoBehaviour
         //use raycast(?)
         if (Input.GetMouseButtonDown(0))
         {
-            CastRay();
+            //if (mode == "ring mode") targetlayer = 8;
+            GameObject target = CastRay(8);
+            if (target != null)
+            {
+                AddCardToHand(target.GetComponent<Card>());
+            }
+            /*else
+            {
+                ClearHand();
+               // RemoveFromHand(target.GetComponent<Card>());
+            }*/
+            //if cast ray returns gameobject and not null
+            //then do addcard to hande
+            /*
+             * GameObject go = CastRay("ring")
+             * HandleCardChoice(go);
+             */
             FlipCard();
         }
-
-        /*if (Input.GetMouseButtonDown(1)) 
-        {
-            FlipCard();
-        }*/
 
         if (Input.GetMouseButtonDown(2))
         {
@@ -95,8 +119,8 @@ public class Hand : MonoBehaviour
 
         Score.text = S + "/4";
     }
-
-    void CastRay()
+    //GameObject CastRay
+    public GameObject CastRay(int layer)
     {
         //This shouldn't be a 2D ray, we are working in 3D
         //It shouldn't be from transform, it should be from screen position.
@@ -105,60 +129,135 @@ public class Hand : MonoBehaviour
 
         //if we hit
 
+
+        /*
+         * raycast hit blah blah
+         * if hit object later == layer paramter
+         * return gameobject
+         * 
+         * something else handles what to do with that game object
+         * probably still a function of the hand
+         * but not this specific function
+         * 
+         */
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        if (Physics.Raycast(ray, out hit)) {
-            Transform objectHit = hit.transform;
 
-            if (objectHit.name == "Front"){
-                
-                Card target;
-                target = objectHit.parent.GetComponent<Card>();
-                //sp.AddSelection(target);
-                //SentenceText.text = sp.PartialSentence;
-                //sp.UpdatePartialSentence();
-                if (target.gameObject.layer == 0)
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject objectHit = hit.transform.gameObject;
+            if (objectHit.name == "Front" && objectHit.layer == layer)
+            {
+                GameObject target = objectHit.transform.parent.gameObject;
+                return target;
+            }
+        }
+
+        return null;
+    }
+    /*if (objectHit.name == "Front")
+    {
+
+        Card target;
+        target = objectHit.parent.GetComponent<Card>();
+    }*/
+    //sp.AddSelection(target);
+    //SentenceText.text = sp.PartialSentence;
+    //sp.UpdatePartialSentence();
+    /*if (target.gameObject.layer == 0)
+    {
+        //void SubmitCardFromHand(Card target){
+        sp.AddSelection(target);
+        SentenceText.text = sp.PartialSentence;
+    }*/
+
+    //void AddCardToHand(Card target){
+    /*if (selectedCards.Count < 5)
+    {
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+
+        for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
+        {
+            //this isFull array is a problem, but jason is not sure how.
+            if ((isFull[i] == false) && (target.gameObject.layer == 8))
+            {
+
+                GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
+                isFull[i] = true;
+                HandCounter = HandCounter + 1;
+                NewCard.gameObject.layer = 0;
+                NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
+
+                HandCards.Add(NewCard);
+                target.gameObject.SetActive(false);
+                break;
+            }
+        }
+
+    }
+    else
+    {
+        ClearHand();
+        Debug.Log($"Max Hand Limit reached, clearing hand");
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+    }*/
+
+
+    void AddCardToHand(Card target)
+    {
+        if (selectedCards.Count < 5)
+        {
+            selectedCards.Add(target);
+            Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+
+            for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
+            {
+                //this isFull array is a problem, but jason is not sure how.
+                if ((isFull[i] == false) && (target.gameObject.layer == 8))
                 {
-                    sp.AddSelection(target);
-                    SentenceText.text = sp.PartialSentence;
-                }
 
-                if (selectedCards.Count < 5)
-                {
-                    selectedCards.Add(target);
-                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                    GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                    NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
+                    isFull[i] = true;
+                    HandCounter = HandCounter + 1;
+                    NewCard.gameObject.layer = 0;
+                    NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                    NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
 
-                    for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
-                    {
-                        //this isFull array is a problem, but jason is not sure how.
-                        if ((isFull[i] == false) && (target.gameObject.layer == 8))
-                        {
-
-                            GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
-                            NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
-                            isFull[i] = true;
-                            HandCounter = HandCounter + 1;
-                            NewCard.gameObject.layer = 0;
-                            NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
-                            NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
-
-                            HandCards.Add(NewCard);
-                            //target.tag = "Untagged";
-                            target.gameObject.SetActive(false);
-                            break;
-                        }
-                    }
-
-                }
-                else
-                {
-                    ClearHand();
-                    Debug.Log($"Max Hand Limit reached, clearing hand");
-                    selectedCards.Add(target);
-                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                    HandCards.Add(NewCard);
+                    target.gameObject.SetActive(false);
+                    break;
                 }
             }
+        }
+    }
+/*        else
+        {
+            ClearHand();
+            Debug.Log($"Max Hand Limit reached, clearing hand");
+            selectedCards.Add(target);
+            Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+        }*/
+
+    void RemoveFromHand (Card target)
+    {
+        ClearHand();
+        Debug.Log($"Max Hand Limit reached, clearing hand");
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+    }
+
+    void SubmitCardFromHand(Card target)
+    {
+        if (target.gameObject.layer == 0)
+        {
+            sp.AddSelection(target);
+            SentenceText.text = sp.PartialSentence;
         }
     }
 
