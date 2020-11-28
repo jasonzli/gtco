@@ -24,6 +24,7 @@ public class SlideshowHolder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Assert(imageUI != null);
         imageUI.enabled = false;
         EndShow += test;
     }
