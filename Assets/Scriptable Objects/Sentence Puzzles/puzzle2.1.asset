@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
-  m_Name: SentencePuzzle 2
+  m_Name: puzzle2.1
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
   ReadFromCSV: 0
-  blankSentence: Parvati trusts _ as _ to _ her wish for _ whilst bathing.
+  blankSentence: _ trusts _ as guardian to _ her wish for _ whilst bathing.
   mythSentence: Parvati trusts Nandi as guardian to protect her wish for privacy
     whilst bathing.
   dataSentence: With Location Settings off, an Arizona resident, trusts her movements
@@ -23,9 +23,4 @@ MonoBehaviour:
   - QueenC
   - EightH
   - AceC
-  - NineS
-  - NineS
-  - NineS
-  - NineS
-  - NineS
   Selections: []

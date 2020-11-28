@@ -67,7 +67,7 @@ public class DeckRing : MonoBehaviour {
             Vector2 offset = new Vector2(radius * Mathf.Cos(a), radius * Mathf.Sin(a));
             Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f * i / cards.Count, transform.position.z + offset.y);
             cards[i].transform.position = pos;
-            //cards[i].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
+            cards[i].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
 
 
 
@@ -75,12 +75,10 @@ public class DeckRing : MonoBehaviour {
             // Matrix4x4 parentMat = transform.localToWorldMatrix;
             // cards[i].transform.position = parentMat.MultiplyVector(pos);
         }
-        FlippedCards();
     }
 
     void FlippedCards()
     {
-        if ( )
         if (hand.HandCounter == 0)
         {
             cards[0].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
@@ -98,7 +96,9 @@ public class DeckRing : MonoBehaviour {
 
     void Update(){
         PlaceCards();
+        FlippedCards();
     }
+
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();
