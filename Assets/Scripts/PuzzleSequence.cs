@@ -12,7 +12,7 @@ public enum InputState{
 public class PuzzleSequence : MonoBehaviour
 {
     [SerializeField]
-    SlideshowHolder Enter;//, Exit;
+    SlideshowHolder Enter, Exit;
 
     [SerializeField]
     PuzzleDeck Deck;
@@ -138,7 +138,11 @@ public class PuzzleSequence : MonoBehaviour
         puzzleNumber += 1;
         if(puzzleNumber >= Deck.Puzzles.Count){
             player.SolvedPuzzle = null;
-            LoadNextPuzzleDeck();//no endshow
+            if (LastPuzzle){
+                Exit.StartSlides();
+            }else{
+                LoadNextPuzzleDeck();//no endshow
+            }
             SwitchState(InputState.SLIDE_STATE);
             return;
         }else{
@@ -151,7 +155,9 @@ public class PuzzleSequence : MonoBehaviour
     [Button]
     void AdvanceSlides(){
         if (Enter.Finished){
-          //  Exit.AdvanceSlides();
+            if (LastPuzzle){
+                Exit.AdvanceSlides();
+            }
         }else{
             Enter.AdvanceSlides();
         }

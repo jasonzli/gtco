@@ -25,7 +25,4 @@ MonoBehaviour:
   Decoys:
   - NineS
   - NineS
-  Selections:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Selections: []
