@@ -39,6 +39,11 @@ public class PuzzleDeck : MonoBehaviour {
                 go.transform.SetParent(transform);
                 cards.Add(go);
             }
+            foreach ( string decoy in sp.Decoys ){
+                GameObject go = createCard(typeSO.FindCardTypeByName(decoy));
+                go.transform.SetParent(transform);
+                cards.Add(go);
+            }
         }
     }
     GameObject createCard(CardSO properties){

@@ -6,16 +6,13 @@ using EasyButtons;
 public class PuzzleSequence : MonoBehaviour
 {
     [SerializeField]
-    SlideshowHolder Enter, Exit;
+    SlideshowHolder Enter;//, Exit;
 
     [SerializeField]
     PuzzleDeck Deck;
 
     [SerializeField]
     SentencePuzzle activePuzzle;
-
-    [SerializeField]
-    int sequencePosition;
     [SerializeField]
     int puzzleNumber;
 
@@ -30,7 +27,7 @@ public class PuzzleSequence : MonoBehaviour
     void OnEnable(){
         //Start the slide show for the intro
         Enter.StartSlides();
-        Exit.EndShow += LoadNextPuzzleDeck;
+        //Exit.EndShow += LoadNextPuzzleDeck;
 
         //Set the puzzle number to 0\
         puzzleNumber = 0;
@@ -73,7 +70,7 @@ public class PuzzleSequence : MonoBehaviour
         activePuzzle.PuzzleSolved = null;//clear event subscription;
         puzzleNumber += 1;
         if(puzzleNumber >= Deck.Puzzles.Count){
-            Exit.StartSlides();
+            LoadNextPuzzleDeck();//no endshow
             return;
         }else{
             activePuzzle = Deck.Puzzles[puzzleNumber];
@@ -83,7 +80,7 @@ public class PuzzleSequence : MonoBehaviour
     [Button]
     void AdvanceSlides(){
         if (Enter.Finished){
-            Exit.AdvanceSlides();
+          //  Exit.AdvanceSlides();
         }else{
             Enter.AdvanceSlides();
         }

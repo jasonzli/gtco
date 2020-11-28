@@ -35,6 +35,8 @@ public class SentencePuzzle : ScriptableObject {
     public string PartialSentence { get; private set;}
 
     public List<string> Keys;
+    
+    public List<string> Decoys;
 
     public List<Card> Selections;
 
