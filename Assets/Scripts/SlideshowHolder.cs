@@ -10,9 +10,11 @@ public class SlideshowHolder : MonoBehaviour
 
     public Action EndShow;
 
+    [Header("Image Textures for Slides")]
     [SerializeField]
     List<Texture2D> slides;
 
+    [Header("UI Canvas must be attached")]
     [SerializeField]
     RawImage imageUI;
 

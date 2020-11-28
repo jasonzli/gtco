@@ -11,15 +11,23 @@ public enum InputState{
 
 public class PuzzleSequence : MonoBehaviour
 {
-    [SerializeField]
-    SlideshowHolder Enter, Exit;
-
+    
+    [Header("Puzzle Fields")]
     [SerializeField]
     PuzzleDeck Deck;
 
     [SerializeField]
+    SlideshowHolder Enter, Exit;
+
+
+    [SerializeField]
     Hand player;
 
+    [SerializeField]
+    private bool lastPuzzle = false;
+    public bool LastPuzzle{ get {return lastPuzzle;} set {lastPuzzle = value;}}
+
+    [Header("Debug Fields, do not modify")]
     [SerializeField]
     SentencePuzzle activePuzzle;
     [SerializeField]
@@ -31,9 +39,6 @@ public class PuzzleSequence : MonoBehaviour
     [SerializeField]
     PuzzleSequence NextPuzzle;
 
-    [SerializeField]
-    private bool lastPuzzle = false;
-    public bool LastPuzzle{ get {return lastPuzzle;} set {lastPuzzle = value;}}
 
     //this is the actual thing that should have any Start() level behavior
     void OnEnable(){

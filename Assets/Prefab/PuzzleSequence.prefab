@@ -30,6 +30,7 @@ Transform:
   m_Children:
   - {fileID: 2726841303085433663}
   - {fileID: 527390942734324026}
+  - {fileID: 6968237295407147490}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,11 +47,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enter: {fileID: 2726841303085433662}
+  Exit: {fileID: 6968237295407147491}
   Deck: {fileID: 527390942734324029}
+  player: {fileID: 0}
   activePuzzle: {fileID: 0}
   puzzleNumber: 0
+  handState: 0
   NextPuzzle: {fileID: 0}
   lastPuzzle: 0
+--- !u!1001 &170675786742061200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 100195673314278937}
+    m_Modifications:
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -71.53125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 90.964424
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.08543
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130355, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: imageUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127643912329130356, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+        type: 3}
+      propertyPath: m_Name
+      value: EndSlides
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e, type: 3}
+--- !u!4 &6968237295407147490 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7127643912329130354, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 170675786742061200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6968237295407147491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7127643912329130355, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 170675786742061200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab75ec667c81e1849bf704801bd0131f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4991250170633577863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,7 +321,7 @@ PrefabInstance:
     - target: {fileID: 7127643912329130356, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e,
         type: 3}
       propertyPath: m_Name
-      value: SlidesControl
+      value: IntroSlides
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54768c2a1b5bb2f4ba92d2dad699bc5e, type: 3}
