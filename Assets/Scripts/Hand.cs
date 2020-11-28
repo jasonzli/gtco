@@ -42,6 +42,12 @@ public class Hand : MonoBehaviour
 
     public List<Card> Key { get; private set; }
 
+    enum CardModes {InRing , InHand};
+
+    CardModes mode;
+
+private int targetlayer;
+
     void Start()
     {
         selectedCards = new List<Card>();
@@ -49,11 +55,6 @@ public class Hand : MonoBehaviour
         SentenceText.GetComponent<Text>();
         //SentenceText.enabled = false;
         HandCards = new List<GameObject>();
-
-        /*for (int i = 0; i < Names.Length; i++)
-        {
-            Names[i].enabled = false;
-        }*/
         PromptText.GetComponent<Text>();
         S = 0;
         Score.GetComponent<Text>();
@@ -61,6 +62,8 @@ public class Hand : MonoBehaviour
         sp.ClearSelections();
         sp.Init();
         SentenceText.text = sp.PartialSentence;
+
+        mode = CardModes.InRing;
         //at start
         //go through the readerObject's answerKey and create a list of keys
         //as keys are found and marked, remove the keys from that List
@@ -87,17 +90,26 @@ public class Hand : MonoBehaviour
         //use raycast(?)
         if (Input.GetMouseButtonDown(0))
         {
+            if (mode == CardModes.InRing)
+            {
+                targetlayer = 8;
+            }
+            if (mode == CardModes.InHand)
+            {
+                targetlayer = 0;
+            }
             //if (mode == "ring mode") targetlayer = 8;
-            GameObject target = CastRay(8);
-            if (target != null)
+            GameObject target = CastRay(targetlayer);
+            if ((target != null) && (target.layer == 8))
             {
                 AddCardToHand(target.GetComponent<Card>());
             }
-            /*else
+            else if ((target != null) && (target.layer == 0))
             {
-                ClearHand();
-               // RemoveFromHand(target.GetComponent<Card>());
-            }*/
+                Debug.Log("DONE");
+                Debug.Log(mode);
+                SubmitCardFromHand(target.GetComponent<Card>());
+            }
             //if cast ray returns gameobject and not null
             //then do addcard to hande
             /*
@@ -119,6 +131,7 @@ public class Hand : MonoBehaviour
 
         Score.text = S + "/4";
     }
+
     //GameObject CastRay
     public GameObject CastRay(int layer)
     {
@@ -210,15 +223,14 @@ public class Hand : MonoBehaviour
 
     void AddCardToHand(Card target)
     {
-        if (selectedCards.Count < 5)
-        {
+       
             selectedCards.Add(target);
             Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
             for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
             {
                 //this isFull array is a problem, but jason is not sure how.
-                if ((isFull[i] == false) && (target.gameObject.layer == 8))
+                if ((isFull[i] == false))
                 {
 
                     GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
@@ -228,22 +240,26 @@ public class Hand : MonoBehaviour
                     NewCard.gameObject.layer = 0;
                     NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
                     NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
-
                     HandCards.Add(NewCard);
                     target.gameObject.SetActive(false);
                     break;
                 }
             }
+
+        if (selectedCards.Count == sp.Keys.Count)
+        {
+            SwitchMode();
         }
     }
-/*        else
-        {
-            ClearHand();
-            Debug.Log($"Max Hand Limit reached, clearing hand");
-            selectedCards.Add(target);
-            Debug.Log($"Chose {target.Name} whose action is {target.Word}");
-        }*/
 
+    void SwitchMode()
+    {
+        if (mode == CardModes.InRing)
+        {
+            mode = CardModes.InHand;
+        }
+        else mode = CardModes.InRing;
+    }
     void RemoveFromHand (Card target)
     {
         ClearHand();
