@@ -61,6 +61,7 @@ public class SentencePuzzle : ScriptableObject {
         }
 
         UpdatePartialSentence();
+        ResetSelections();
         Debug.Log(PartialSentence);
     }
 
@@ -128,6 +129,7 @@ public class SentencePuzzle : ScriptableObject {
     //empty the choices
     public bool ClearSelections(){
         Selections.Clear();
+        Selections = new List<Card>();
         return true;
     }
 
@@ -163,7 +165,7 @@ public class SentencePuzzle : ScriptableObject {
 
     ///////////////////////
     ///
-    ///   Utilies
+    ///   Utilities
     ///
     /////////////////////////////
 

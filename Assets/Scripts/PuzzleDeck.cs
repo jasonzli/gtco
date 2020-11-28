@@ -32,7 +32,6 @@ public class PuzzleDeck : MonoBehaviour {
         foreach ( SentencePuzzle sp in Puzzles ){
            
             sp.Init(); //initialize the SP
-
             //now initialize key cards from sp
             foreach ( string key in sp.Keys ){
                 GameObject go = createCard(typeSO.FindCardTypeByName(key));

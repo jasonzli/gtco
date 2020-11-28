@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using EasyButtons;
 
+public enum InputState{
+    SLIDE_STATE,
+    PUZZLE_STATE,
+    SOLVE_STATE
+}
+
 public class PuzzleSequence : MonoBehaviour
 {
     [SerializeField]
-    SlideshowHolder Enter;//, Exit;
+    SlideshowHolder Enter, Exit;
 
     [SerializeField]
     PuzzleDeck Deck;
 
     [SerializeField]
+    Hand player;
+
+    [SerializeField]
     SentencePuzzle activePuzzle;
     [SerializeField]
     int puzzleNumber;
+
+    [SerializeField]
+    private InputState handState = InputState.SLIDE_STATE;
 
     [SerializeField]
     PuzzleSequence NextPuzzle;
@@ -27,6 +39,7 @@ public class PuzzleSequence : MonoBehaviour
     void OnEnable(){
         //Start the slide show for the intro
         Enter.StartSlides();
+        Enter.EndShow += StartPuzzles;
         //Exit.EndShow += LoadNextPuzzleDeck;
 
         //Set the puzzle number to 0\
@@ -34,18 +47,66 @@ public class PuzzleSequence : MonoBehaviour
         activePuzzle = Deck.Puzzles[puzzleNumber];
         activePuzzle.PuzzleSolved += AdvancePuzzles;
 
-        StartPuzzles();
+        //this is where we set up the Hand
+        SetHandPuzzle();
+        player.SolvedPuzzle += () => {handState = InputState.SOLVE_STATE;};//this is jank, but we use this to show the data text
+        player.HandClearing += Deck.FlipUpCards;
+        activePuzzle.ClearSelections();
+
+    }
+
+    void SetHandPuzzle(){
+        player.SetPuzzle(activePuzzle);
     }
 
     //Initialize the deck with the puzzles in it
     [Button]
     void StartPuzzles(){
+        Enter.EndShow = null;
         Deck.InitializePuzzle();
         Deck.PlaceCards();
+        SwitchState(InputState.PUZZLE_STATE);
+    }
+
+    void SwitchState(InputState state){
+        handState = state;
     }
 
     void Update(){
+        switch (handState){
+            case (InputState.SLIDE_STATE):
+                SlideInputs();
+                break;
+            case (InputState.PUZZLE_STATE):
+                PuzzleInputs();
+                break;
+            case (InputState.SOLVE_STATE):
+                SolvedInputs();
+                break;
+            default:
+                break;
+        }
+    }
 
+    void SlideInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            AdvanceSlides();
+        }
+
+    }
+
+    void PuzzleInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            player.handleInput();
+        }
+    }
+
+    void SolvedInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            Debug.Log("1");
+            player.TransitionPuzzle();
+            AdvancePuzzles();
+        }
     }
 
     [Button]
@@ -59,6 +120,8 @@ public class PuzzleSequence : MonoBehaviour
         }
         Debug.Log(allSolved);
         return allSolved;
+
+
     }
 
     //This function fires when the active puzzle is done.
@@ -68,19 +131,33 @@ public class PuzzleSequence : MonoBehaviour
     [Button]
     void AdvancePuzzles(){
         activePuzzle.PuzzleSolved = null;//clear event subscription;
+        //clear the hand subscription;
+        // and update the hand with the new puzzle
+
+
         puzzleNumber += 1;
         if(puzzleNumber >= Deck.Puzzles.Count){
-            LoadNextPuzzleDeck();//no endshow
+            player.SolvedPuzzle = null;
+            if (LastPuzzle){
+                Exit.StartSlides();
+            }else{
+                LoadNextPuzzleDeck();//no endshow
+            }
+            SwitchState(InputState.SLIDE_STATE);
             return;
         }else{
             activePuzzle = Deck.Puzzles[puzzleNumber];
             activePuzzle.PuzzleSolved += AdvancePuzzles;
+            SwitchState(InputState.PUZZLE_STATE);
+            player.SetPuzzle(activePuzzle);
         }
     }
     [Button]
     void AdvanceSlides(){
         if (Enter.Finished){
-          //  Exit.AdvanceSlides();
+            if (LastPuzzle){
+                Exit.AdvanceSlides();
+            }
         }else{
             Enter.AdvanceSlides();
         }

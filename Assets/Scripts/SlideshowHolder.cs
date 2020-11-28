@@ -37,15 +37,16 @@ public class SlideshowHolder : MonoBehaviour
     }
 
     [Button]
-    public void AdvanceSlides(){
+    public bool AdvanceSlides(){
 
         slidePosition = Mathf.Clamp(slidePosition + 1,0, slides.Count);//just to keep the number sane
 
         if (slidePosition >= slides.Count){
             EndSlides();
-
+            return true;
         }else {
             imageUI.texture = slides[slidePosition];
+            return false;
         }
 
     }
