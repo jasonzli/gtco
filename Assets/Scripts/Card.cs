@@ -57,23 +57,8 @@ public class Card : MonoBehaviour
         
     }
 
-
-    //No longer needed Spinning function
-    public void Spinning(){
-        StartCoroutine(Spin());
+    public void Flip(){
+        transform.Rotate(new Vector3( 180f,0f,0f));
     }
 
-    public IEnumerator Spin(){
-        while (true){
-
-            accumulatedSpin += rotationSpeed * Time.deltaTime;
-
-            transform.rotation =  Quaternion.Euler(0f , 0f, accumulatedSpin);
-            yield return null;
-        }
-
-        // transform.rotation = Quaternion.Euler(0f , 0f, 180f);
-
-        // accumulatedSpin = 0;
-    }
 }

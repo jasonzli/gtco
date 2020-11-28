@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using EasyButtons;
 
+public enum InputState{
+    SLIDE_STATE,
+    PUZZLE_STATE
+}
+
 public class PuzzleSequence : MonoBehaviour
 {
     [SerializeField]
@@ -12,9 +17,15 @@ public class PuzzleSequence : MonoBehaviour
     PuzzleDeck Deck;
 
     [SerializeField]
+    Hand player;
+
+    [SerializeField]
     SentencePuzzle activePuzzle;
     [SerializeField]
     int puzzleNumber;
+
+    [SerializeField]
+    private InputState handState = InputState.SLIDE_STATE;
 
     [SerializeField]
     PuzzleSequence NextPuzzle;
@@ -27,6 +38,7 @@ public class PuzzleSequence : MonoBehaviour
     void OnEnable(){
         //Start the slide show for the intro
         Enter.StartSlides();
+        Enter.EndShow += StartPuzzles;
         //Exit.EndShow += LoadNextPuzzleDeck;
 
         //Set the puzzle number to 0\
@@ -34,18 +46,52 @@ public class PuzzleSequence : MonoBehaviour
         activePuzzle = Deck.Puzzles[puzzleNumber];
         activePuzzle.PuzzleSolved += AdvancePuzzles;
 
-        StartPuzzles();
+        //this is where we set up the Hand
+        SetHandPuzzle();
+        activePuzzle.ClearSelections();
+    }
+
+    void SetHandPuzzle(){
+        player.SetPuzzle(activePuzzle);
     }
 
     //Initialize the deck with the puzzles in it
     [Button]
     void StartPuzzles(){
+        Enter.EndShow = null;
         Deck.InitializePuzzle();
         Deck.PlaceCards();
+        SwitchState(InputState.PUZZLE_STATE);
+    }
+
+    void SwitchState(InputState state){
+        handState = state;
     }
 
     void Update(){
+        switch (handState){
+            case (InputState.SLIDE_STATE):
+                SlideInputs();
+                break;
+            case (InputState.PUZZLE_STATE):
+                PuzzleInputs();
+                break;
+            default:
+                break;
+        }
+    }
 
+    void SlideInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            AdvanceSlides();
+        }
+
+    }
+
+    void PuzzleInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            player.handleInput();
+        }
     }
 
     [Button]
@@ -59,6 +105,8 @@ public class PuzzleSequence : MonoBehaviour
         }
         Debug.Log(allSolved);
         return allSolved;
+
+        
     }
 
     //This function fires when the active puzzle is done.
