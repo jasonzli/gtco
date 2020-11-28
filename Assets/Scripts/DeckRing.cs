@@ -67,7 +67,7 @@ public class DeckRing : MonoBehaviour {
             Vector2 offset = new Vector2(radius * Mathf.Cos(a), radius * Mathf.Sin(a));
             Vector3 pos = new Vector3(transform.position.x + offset.x, transform.position.y + 2f * i / cards.Count, transform.position.z + offset.y);
             cards[i].transform.position = pos;
-            //cards[i].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
+            cards[i].transform.rotation = Quaternion.Euler(0.0f, 180.0f, -180.0f);
 
 
 

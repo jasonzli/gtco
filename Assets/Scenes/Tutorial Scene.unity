@@ -1806,6 +1806,7 @@ MonoBehaviour:
   HandCounter: 0
   PromptText: {fileID: 314196232}
   Score: {fileID: 436724586}
+  sp: {fileID: 11400000, guid: fd41100b0ee10ee4bbafff8edaba964e, type: 2}
 --- !u!4 &1673178098
 Transform:
   m_ObjectHideFlags: 0

@@ -37,29 +37,52 @@ public class Hand : MonoBehaviour
     public Text Score;
     private int S;
 
+    [SerializeField]
+    private SentencePuzzle sp;
+
     public List<Card> Key { get; private set; }
+
+    enum CardModes {InRing , InHand};
+
+    CardModes mode;
+
+private int targetlayer;
 
     void Start()
     {
         selectedCards = new List<Card>();
         readerObject.Init();
         SentenceText.GetComponent<Text>();
-        SentenceText.enabled = false;
+        //SentenceText.enabled = false;
         HandCards = new List<GameObject>();
-
-        for (int i = 0; i < Names.Length; i++)
-        {
-            Names[i].enabled = false;
-        }
         PromptText.GetComponent<Text>();
         S = 0;
         Score.GetComponent<Text>();
+
+        sp.ClearSelections();
+        sp.Init();
+        SentenceText.text = sp.PartialSentence;
+
+        mode = CardModes.InRing;
         //at start
         //go through the readerObject's answerKey and create a list of keys
         //as keys are found and marked, remove the keys from that List
         //if the list is equal to zero, then we know we have found all of the reader's keys.
         //and that should tell the UI "hey I'm mdone wiht this reader!"
     }
+    /*
+    void HandleCardChoice(GameObject choice)
+    {
+        if (!handful)
+        {
+            AddCardToHand(go);
+        }
+        else
+        {
+            SubmitCardToSelection(go);
+        }
+    }
+    */
 
     void Update()
     {
@@ -67,13 +90,33 @@ public class Hand : MonoBehaviour
         //use raycast(?)
         if (Input.GetMouseButtonDown(0))
         {
-            CastRay();
+            if (mode == CardModes.InRing)
+            {
+                targetlayer = 8;
+            }
+            if (mode == CardModes.InHand)
+            {
+                targetlayer = 0;
+            }
+            //if (mode == "ring mode") targetlayer = 8;
+            GameObject target = CastRay(targetlayer);
+            if ((target != null) && (target.layer == 8))
+            {
+                AddCardToHand(target.GetComponent<Card>());
+            }
+            else if ((target != null) && (target.layer == 0))
+            {
+                Debug.Log("DONE");
+                Debug.Log(mode);
+                SubmitCardFromHand(target.GetComponent<Card>());
+            }
+            //if cast ray returns gameobject and not null
+            //then do addcard to hande
+            /*
+             * GameObject go = CastRay("ring")
+             * HandleCardChoice(go);
+             */
             FlipCard();
-        }
-
-        if (Input.GetMouseButtonDown(1)) 
-        {
-            //FlipCard();
         }
 
         if (Input.GetMouseButtonDown(2))
@@ -89,114 +132,148 @@ public class Hand : MonoBehaviour
         Score.text = S + "/4";
     }
 
-    void CastRay()
+    //GameObject CastRay
+    public GameObject CastRay(int layer)
     {
         //This shouldn't be a 2D ray, we are working in 3D
         //It shouldn't be from transform, it should be from screen position.
         // Ray2D ray = new Ray2D(transform.position, transform.forward);
         // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-        //if we hit 
+        //if we hit
+
+
+        /*
+         * raycast hit blah blah
+         * if hit object later == layer paramter
+         * return gameobject
+         * 
+         * something else handles what to do with that game object
+         * probably still a function of the hand
+         * but not this specific function
+         * 
+         */
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        if (Physics.Raycast(ray, out hit)) {
-            Transform objectHit = hit.transform;
 
-            if (objectHit.name == "Front"){
-                
-                Card target;
-                target = objectHit.parent.GetComponent<Card>();
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject objectHit = hit.transform.gameObject;
+            if (objectHit.name == "Front" && objectHit.layer == layer)
+            {
+                GameObject target = objectHit.transform.parent.gameObject;
+                return target;
+            }
+        }
 
-                if (selectedCards.Count < 5)
+        return null;
+    }
+    /*if (objectHit.name == "Front")
+    {
+
+        Card target;
+        target = objectHit.parent.GetComponent<Card>();
+    }*/
+    //sp.AddSelection(target);
+    //SentenceText.text = sp.PartialSentence;
+    //sp.UpdatePartialSentence();
+    /*if (target.gameObject.layer == 0)
+    {
+        //void SubmitCardFromHand(Card target){
+        sp.AddSelection(target);
+        SentenceText.text = sp.PartialSentence;
+    }*/
+
+    //void AddCardToHand(Card target){
+    /*if (selectedCards.Count < 5)
+    {
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+
+        for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
+        {
+            //this isFull array is a problem, but jason is not sure how.
+            if ((isFull[i] == false) && (target.gameObject.layer == 8))
+            {
+
+                GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
+                isFull[i] = true;
+                HandCounter = HandCounter + 1;
+                NewCard.gameObject.layer = 0;
+                NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
+
+                HandCards.Add(NewCard);
+                target.gameObject.SetActive(false);
+                break;
+            }
+        }
+
+    }
+    else
+    {
+        ClearHand();
+        Debug.Log($"Max Hand Limit reached, clearing hand");
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+    }*/
+
+
+    void AddCardToHand(Card target)
+    {
+       
+            selectedCards.Add(target);
+            Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+
+            for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
+            {
+                //this isFull array is a problem, but jason is not sure how.
+                if ((isFull[i] == false))
                 {
-                    selectedCards.Add(target);
-                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-                    for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
-                    {
-                        //this isFull array is a problem, but jason is not sure how.
-                        if ((isFull[i] == false) && (target.gameObject.layer == 8))
-                        {
-
-                            GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
-                            NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
-                            isFull[i] = true;
-                            HandCounter = HandCounter + 1;
-                            NewCard.gameObject.layer = 0;
-                            NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
-                            NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
-
-                            HandCards.Add(NewCard);
-                            //target.tag = "Untagged";
-                            target.gameObject.SetActive(false);
-                            break;
-                        }
-                    }
-
-                    if (selectedCards.Count == 2)
-                    {
-                        if ((selectedCards[0].name == "EightC") && (selectedCards[1].name == "KingH"))
-                        {
-                            SentenceText.enabled = true;
-                            SentenceText.text = "To her dismay he steps aside and permits his master Shiva entry without his wife's consent.";
-                        }
-                    }
-
-                    if (selectedCards.Count == 3)
-                    {
-                        if ((selectedCards[0].name == "QueenH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "EightD"))
-                        {
-                            SentenceText.enabled = true;
-                            SentenceText.text = "Parvati knows that the existence of Mount Kailash extends from her being.";
-                            PromptText.text = "Search for three cards... First is a 'face' different from the earlier one and the rest are 'verb' cards, one of them same as the previous one.";
-                            S = 1;
-                        }
-
-                        if ((selectedCards[0].name == "KingH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "NineC"))
-                        {
-                            SentenceText.enabled = true;
-                            SentenceText.text = "Shiva sees all on Mount Kailash as a domain that belongs to him.";
-                            PromptText.text = "Search for three cards... First two are 'verb' cards and the third is a return of a familiar 'face' card.";
-                            S = 2;
-                        }
-
-                        if ((selectedCards[0].name == "SixC") && (selectedCards[1].name == "EightD") && (selectedCards[2].name == "QueenH"))
-                        {
-                            SentenceText.enabled = true;
-                            SentenceText.text = "Data is an extension of a user's behavior online on websites like Google's.";
-                            PromptText.text = "Search for three cards... First is the 'face' card from a couple turns before, rest two are 'verb' cards.";
-                            S = 3;
-                        }
-
-                        if ((selectedCards[0].name == "KingH") && (selectedCards[1].name == "SixC") && (selectedCards[2].name == "NineD"))
-                        {
-                            SentenceText.enabled = true;
-                            SentenceText.text = "Google sees data produced on their websites as items whose ownership they rightfully retain.";
-                            S = 4;
-                        }
-                    }
-
-                    if (selectedCards.Count == 5)
-                    {
-                        if ((selectedCards[0].name == "QueenC") && (selectedCards[1].name == "EightH") && (selectedCards[2].name == "AceC")
-                        && (selectedCards[3].name == "NineS") && (selectedCards[4].name == "SevenH"))
-                        {
-                            print("Doing!");
-                            SentenceText.enabled = true;
-                            SentenceText.text = "Parvati trusts Nandi as guardian to protect her wish for privacy whilst bathing.";
-                        }
-                    }
-                }
-                else
-                {
-                    ClearHand();
-                    Debug.Log($"Max Hand Limit reached, clearing hand");
-                    selectedCards.Add(target);
-                    Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+                    GameObject NewCard = Instantiate(target.gameObject, CardSlots[i].transform.position, CardSlots[i].transform.rotation);
+                    NewCard.GetComponent<Card>().ApplyProperties(target.Properties);//use apply property to change the card.
+                    isFull[i] = true;
+                    HandCounter = HandCounter + 1;
+                    NewCard.gameObject.layer = 0;
+                    NewCard.gameObject.transform.GetChild(0).gameObject.layer = 0;
+                    NewCard.gameObject.transform.GetChild(1).gameObject.layer = 0;
+                    HandCards.Add(NewCard);
+                    target.gameObject.SetActive(false);
+                    break;
                 }
             }
+
+        if (selectedCards.Count == sp.Keys.Count)
+        {
+            SwitchMode();
+        }
+    }
+
+    void SwitchMode()
+    {
+        if (mode == CardModes.InRing)
+        {
+            mode = CardModes.InHand;
+        }
+        else mode = CardModes.InRing;
+    }
+    void RemoveFromHand (Card target)
+    {
+        ClearHand();
+        Debug.Log($"Max Hand Limit reached, clearing hand");
+        selectedCards.Add(target);
+        Debug.Log($"Chose {target.Name} whose action is {target.Word}");
+    }
+
+    void SubmitCardFromHand(Card target)
+    {
+        if (target.gameObject.layer == 0)
+        {
+            sp.AddSelection(target);
+            SentenceText.text = sp.PartialSentence;
         }
     }
 
@@ -208,7 +285,7 @@ public class Hand : MonoBehaviour
         {
             Transform objectHit = hit.transform;
 
-            if ((objectHit.name == "Front") || (objectHit.name == "Back"))
+            if (/*(objectHit.name == "Front") || */(objectHit.name == "Back"))
             {
                 Card target;
 
@@ -304,7 +381,7 @@ public class Hand : MonoBehaviour
             isFull[i] = false;
         }
         HandCounter = 0;
-        SentenceText.enabled = false;
+        //SentenceText.enabled = false;
         selectedCards.Clear();
     }
 }
