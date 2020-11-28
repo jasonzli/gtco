@@ -17,6 +17,10 @@ MonoBehaviour:
   blankSentence: _ knows that the existence of _ _ from her being.
   mythSentence: Parvati knows that the existence of Mount Kailash extends from her
     being.
-  dataSentence: 
-  Keys: []
+  dataSentence: "Data is an extension of a user\u2019s behavior online on websites
+    like Google\u2019s."
+  Keys:
+  - QueenH
+  - SixC
+  - EightD
   Selections: []
