@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyButtons;
+using System;
 
 public class SlideshowHolder : MonoBehaviour
 {
+
+    public Action EndShow;
 
     [SerializeField]
     List<Texture2D> slides;
@@ -16,21 +19,25 @@ public class SlideshowHolder : MonoBehaviour
     [SerializeField]
     int slidePosition = 0;
 
+    public bool Finished{get; private set;}
+
     // Start is called before the first frame update
     void Start()
     {
         imageUI.enabled = false;
+        EndShow += test;
     }
 
     [Button]
-    void StartSlides(){
+    public void StartSlides(){
         imageUI.enabled = true;
         slidePosition = 0;
+        Finished = false;
         imageUI.texture = slides[slidePosition];
     }
 
     [Button]
-    void AdvanceSlides(){
+    public void AdvanceSlides(){
 
         slidePosition = Mathf.Clamp(slidePosition + 1,0, slides.Count);//just to keep the number sane
 
@@ -41,11 +48,17 @@ public class SlideshowHolder : MonoBehaviour
             imageUI.texture = slides[slidePosition];
         }
 
-
     }
 
-    void EndSlides(){
+    public void EndSlides(){
         imageUI.enabled = false;
+        Finished = true;
+        EndShow?.Invoke();
+        EndShow = null;
+    }
+
+    public void test(){
+        Debug.Log("hello action");
     }
 
     // Update is called once per frame
