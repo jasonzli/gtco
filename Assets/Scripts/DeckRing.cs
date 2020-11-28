@@ -9,7 +9,7 @@ The ring should have the following properties
  * a location
  * possibly an ability to move
 */
-//using UnityEngine;
+
 
 //[CreateAssetMenu(fileName = "DeckRing", menuName = "gtco/DeckRing", order = 1)]
 public class DeckRing : MonoBehaviour {
@@ -75,7 +75,6 @@ public class DeckRing : MonoBehaviour {
             // Matrix4x4 parentMat = transform.localToWorldMatrix;
             // cards[i].transform.position = parentMat.MultiplyVector(pos);
         }
-        FlippedCards();
     }
 
     void FlippedCards()
@@ -97,7 +96,9 @@ public class DeckRing : MonoBehaviour {
 
     void Update(){
         PlaceCards();
+        FlippedCards();
     }
+
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();
@@ -118,6 +119,13 @@ public class DeckRing : MonoBehaviour {
 
 
         return d;
+    }
+
+    public bool DeleteCards(){
+        foreach( GameObject c in cards ){
+            Destroy(c);
+        }
+        return true;
     }
     
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
+  m_Name: puzzle1.1
+  m_EditorClassIdentifier: 
+  puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
+  ReadFromCSV: 0
+  blankSentence: _ knows that the existence of _ _ from her being.
+  mythSentence: Parvati knows that the existence of Mount Kailash extends from her
+    being.
+  dataSentence: "Data is an extension of a user\u2019s behavior online on websites
+    like Google\u2019s."
+  Keys:
+  - QueenH
+  - SixC
+  - EightD
+  Selections: []

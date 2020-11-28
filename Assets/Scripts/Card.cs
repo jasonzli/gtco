@@ -25,11 +25,17 @@ public class Card : MonoBehaviour
     //properties from the scriptable object instead of being stored here
     public string Name{ get {return properties.cardName;}}
     public string Word{ get {return properties.cardWord;}}
+
+    [SerializeField]
+    private bool DebugType = false;
     
     // Start is called before the first frame update
     void Start()
     {
         //ApplyProperties();
+        if ( cardTypes.Length > 0 && DebugType == true){
+           ApplyProperties(cardTypes[0]);
+        }
     
     }
 
