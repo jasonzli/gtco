@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
-  m_Name: SentencePuzzle
+  m_Name: puzzle1.2
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
   ReadFromCSV: 0
