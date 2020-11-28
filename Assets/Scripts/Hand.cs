@@ -9,7 +9,8 @@ using System;
 
 public class Hand : MonoBehaviour
 {
-
+    public Action SolvedPuzzle;
+    public Action HandClearing;
     public List<Card> selectedCards;
 
     public bool[] isFull;
@@ -23,6 +24,7 @@ public class Hand : MonoBehaviour
 
     public Text PromptText;
 
+    public Text DataText;
     public Text Score;
     private int S;
 
@@ -32,12 +34,15 @@ public class Hand : MonoBehaviour
 
     enum CardModes {InRing , InHand};
 
+    [SerializeField]
     CardModes mode;
 
     private int targetlayer;
 
     public void SetPuzzle(SentencePuzzle puzzle){
         sp = puzzle;
+        DataText.text = sp.DataSentence;
+        DataText.gameObject.SetActive(false);
         SentenceText.text = sp.PartialSentence;
     }
 
@@ -94,9 +99,9 @@ public class Hand : MonoBehaviour
             }
             //if (mode == "ring mode") targetlayer = 8;
             GameObject target = CastRay(targetlayer);
+            Card targetCard = target?.GetComponent<Card>();
             if ((target != null) && (target.layer == 8))
             {
-                Card targetCard = target.GetComponent<Card>();
                 if (sp.Keys.Contains(targetCard.Name)) // check if the card is in the key or not of the active puzzle
                 {
                     AddCardToHand(targetCard);
@@ -109,7 +114,26 @@ public class Hand : MonoBehaviour
             {
                 Debug.Log("DONE");
                 Debug.Log(mode);
-                SubmitCardFromHand(target.GetComponent<Card>());
+                //here we need to compare if the potential submission matches the blank field in the keys
+                //the first submission should match sp.Keys[0] then [1] and so on
+                //which means we need to know how many submissions we have made
+                //we can use Selections.Count to know how many submissions are correct and made.
+                int selectionIndex = sp.Selections.Count;
+                if ( targetCard.Name == sp.Keys[selectionIndex])
+                {
+                    SubmitCardFromHand(target.GetComponent<Card>());
+                    //if we get one correct, we need to reflip the cards back up
+                    foreach(GameObject c in HandCards) {
+                        if (c.GetComponent<Card>().Name == targetCard.Name){
+                            //if the same card, skip because it is correct
+                            continue;
+                        }
+                        c.transform.rotation = Quaternion.Euler(180f,0f,0f);
+                    }
+
+                }else{
+                    targetCard.Flip();
+                }
             }
 
         Score.text = S + "/4";
@@ -121,7 +145,7 @@ public class Hand : MonoBehaviour
         selectedCards.Add(target);
         Debug.Log($"Chose {target.Name} whose action is {target.Word}");
 
-        for (int i = 0; i < CardSlots.Length; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
+        for (int i = 0; i < sp.Keys.Count; i++) // needed to make sure only one card is added per click, but is because we raycast in update loop
         {
             //this isFull array is a problem, but jason is not sure how.
             if ((isFull[i] == false))
@@ -146,25 +170,41 @@ public class Hand : MonoBehaviour
         }
     }
 
+    public void EmptyHand(){
+        HandCards = new List<GameObject>();
+    }
 
     void SubmitCardFromHand(Card target)
     {
-        if (target.gameObject.layer == 0)
-        {
-            sp.AddSelection(target);
-            SentenceText.text = sp.PartialSentence;
+        sp.AddSelection(target);
+        SentenceText.text = sp.PartialSentence;
+        if (sp.CheckKeys()){
+            //Show the data sentence!!!!!!!!!!!!!!!
+            //something here to do that
+            DataText.gameObject.SetActive(true);
+   
+            SolvedPuzzle?.Invoke();
         }
+    }
+
+    public void TransitionPuzzle(){
+        SwitchMode();
+        DeleteHand();
+        EmptyHand();
+        //tell the puzzle sequence to reflip the deck
+        HandClearing?.Invoke();
     }
 
 
     void AddCard(Card card){
-        if (selectedCards.Count > CardSlots.Length){
+        if (selectedCards.Count == sp.Keys.Count){
             Debug.Log("Hand is full");
             return;
         }
 
         selectedCards.Add(card);
     }
+
 
     public void ClearHand(){
 
@@ -173,9 +213,29 @@ public class Hand : MonoBehaviour
             
             c.gameObject.SetActive(true);
         }
+
         foreach( GameObject go in HandCards){
             GameObject.Destroy(go);
         }
+
+        for (var i = 0; i < CardSlots.Length; i++){
+            isFull[i] = false;
+        }
+        HandCounter = 0;
+
+        sp.ClearSelections();
+        selectedCards.Clear();
+        SwitchMode();
+
+        HandClearing?.Invoke();
+    }
+    //almost the same as aboveexcept don't reactivate the hand
+    public void DeleteHand(){
+
+        foreach( GameObject go in HandCards){
+            GameObject.Destroy(go);
+        }
+
         for (var i = 0; i < CardSlots.Length; i++){
             isFull[i] = false;
         }
@@ -184,7 +244,8 @@ public class Hand : MonoBehaviour
         sp.ClearSelections();
         selectedCards.Clear();
 
-        SwitchMode();
+        //tell the puzzle sequence to reflip the deck
+        HandClearing?.Invoke();
     }
 
     

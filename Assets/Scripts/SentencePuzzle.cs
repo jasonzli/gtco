@@ -165,7 +165,7 @@ public class SentencePuzzle : ScriptableObject {
 
     ///////////////////////
     ///
-    ///   Utilies
+    ///   Utilities
     ///
     /////////////////////////////
 

@@ -19,10 +19,13 @@ MonoBehaviour:
   dataSentence: "Google sees data produced on their websites as items who\u2019s
     ownership they rightfully retain."
   Keys:
-  - KingC
+  - KingH
   - SixC
   - NineC
   Decoys:
   - NineS
   - NineS
-  Selections: []
+  Selections:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

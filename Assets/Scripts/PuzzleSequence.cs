@@ -5,7 +5,8 @@ using EasyButtons;
 
 public enum InputState{
     SLIDE_STATE,
-    PUZZLE_STATE
+    PUZZLE_STATE,
+    SOLVE_STATE
 }
 
 public class PuzzleSequence : MonoBehaviour
@@ -48,7 +49,10 @@ public class PuzzleSequence : MonoBehaviour
 
         //this is where we set up the Hand
         SetHandPuzzle();
+        player.SolvedPuzzle += () => {handState = InputState.SOLVE_STATE;};//this is jank, but we use this to show the data text
+        player.HandClearing += Deck.FlipUpCards;
         activePuzzle.ClearSelections();
+
     }
 
     void SetHandPuzzle(){
@@ -76,6 +80,9 @@ public class PuzzleSequence : MonoBehaviour
             case (InputState.PUZZLE_STATE):
                 PuzzleInputs();
                 break;
+            case (InputState.SOLVE_STATE):
+                SolvedInputs();
+                break;
             default:
                 break;
         }
@@ -94,6 +101,14 @@ public class PuzzleSequence : MonoBehaviour
         }
     }
 
+    void SolvedInputs(){
+        if (Input.GetMouseButtonDown(0)){
+            Debug.Log("1");
+            player.TransitionPuzzle();
+            AdvancePuzzles();
+        }
+    }
+
     [Button]
     bool CheckPuzzles(){
         bool allSolved = true;
@@ -106,7 +121,7 @@ public class PuzzleSequence : MonoBehaviour
         Debug.Log(allSolved);
         return allSolved;
 
-        
+
     }
 
     //This function fires when the active puzzle is done.
@@ -116,13 +131,21 @@ public class PuzzleSequence : MonoBehaviour
     [Button]
     void AdvancePuzzles(){
         activePuzzle.PuzzleSolved = null;//clear event subscription;
+        //clear the hand subscription;
+        // and update the hand with the new puzzle
+
+
         puzzleNumber += 1;
         if(puzzleNumber >= Deck.Puzzles.Count){
+            player.SolvedPuzzle = null;
             LoadNextPuzzleDeck();//no endshow
+            SwitchState(InputState.SLIDE_STATE);
             return;
         }else{
             activePuzzle = Deck.Puzzles[puzzleNumber];
             activePuzzle.PuzzleSolved += AdvancePuzzles;
+            SwitchState(InputState.PUZZLE_STATE);
+            player.SetPuzzle(activePuzzle);
         }
     }
     [Button]
