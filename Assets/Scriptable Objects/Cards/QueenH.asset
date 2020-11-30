@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: QueenH
   m_EditorClassIdentifier: 
   cardName: QueenH
-  cardWord: User
+  cardWord: Parvati
   frontImage: {fileID: 2800000, guid: 2d79221158f179d439e57bce7bfd9a9c, type: 3}

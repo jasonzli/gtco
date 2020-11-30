@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
-  m_Name: SentencePuzzle 1
+  m_Name: puzzle2.1
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
-  ReadFromCSV: 1
-  blankSentence: _ knows that the existence of _ _ from her being.
-  mythSentence: Parvati knows that the existence of Mount Kailash extends from her
-    being.
-  dataSentence: 
-  Keys: []
+  ReadFromCSV: 0
+  blankSentence: 'The goddess _ trusts the guardian of the home to _ her wish for
+    _ whilst bathing. '
+  mythSentence: The goddess Parvati trusts the guardian of the home to protect her
+    wish for privacy whilst bathing.
+  dataSentence: With Location Settings off, an Arizona resident, trusts her movements
+    to be private when using Google Search
+  Keys:
+  - QueenC
+  - NineS
+  - SevenH
+  Decoys: []
   Selections: []

@@ -75,7 +75,6 @@ public class DeckRing : MonoBehaviour {
             // Matrix4x4 parentMat = transform.localToWorldMatrix;
             // cards[i].transform.position = parentMat.MultiplyVector(pos);
         }
-        //FlippedCards();
     }
 
     void FlippedCards()
@@ -97,7 +96,9 @@ public class DeckRing : MonoBehaviour {
 
     void Update(){
         PlaceCards();
+        FlippedCards();
     }
+
     Dictionary<string,int> SetCardDictionary()//might need json.NET, until then...
     {
         Dictionary<string,int> d = new Dictionary<string, int>();

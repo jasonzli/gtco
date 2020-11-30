@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EasyButtons;
+using System;
 
 
 [CreateAssetMenu(fileName = "SentencePuzzle", menuName = "gtco/Sentence Puzzle", order = 2)]
 public class SentencePuzzle : ScriptableObject {
+
+    public Action PuzzleSolved;
     [Header("CSV Settings")]
     
     public TextAsset puzzleIdentityCSV;
@@ -32,6 +35,8 @@ public class SentencePuzzle : ScriptableObject {
     public string PartialSentence { get; private set;}
 
     public List<string> Keys;
+    
+    public List<string> Decoys;
 
     public List<Card> Selections;
 
@@ -56,6 +61,7 @@ public class SentencePuzzle : ScriptableObject {
         }
 
         UpdatePartialSentence();
+        ResetSelections();
         Debug.Log(PartialSentence);
     }
 
@@ -123,6 +129,7 @@ public class SentencePuzzle : ScriptableObject {
     //empty the choices
     public bool ClearSelections(){
         Selections.Clear();
+        Selections = new List<Card>();
         return true;
     }
 
@@ -158,7 +165,7 @@ public class SentencePuzzle : ScriptableObject {
 
     ///////////////////////
     ///
-    ///   Utilies
+    ///   Utilities
     ///
     /////////////////////////////
 

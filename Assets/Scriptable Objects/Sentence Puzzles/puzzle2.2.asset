@@ -10,22 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
-  m_Name: SentencePuzzle 2
+  m_Name: puzzle2.2
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
   ReadFromCSV: 0
-  blankSentence: Parvati trusts _ as _ to _ her wish for _ whilst bathing.
-  mythSentence: Parvati trusts Nandi as guardian to protect her wish for privacy
-    whilst bathing.
-  dataSentence: With Location Settings off, an Arizona resident, trusts her movements
-    to be private when using Google Search
+  blankSentence: "To her dismay _ steps aside and _ his master _ entry without his
+    wife\u2019s consent."
+  mythSentence: "To her dismay Nandi steps aside and permits his master Shiva entry
+    without his wife\u2019s consent."
+  dataSentence: To her dismay other parts of Google's terms of service still allows
+    them send her data to local businesses.
   Keys:
-  - QueenC
-  - EightH
   - AceC
-  - NineS
-  - NineS
-  - NineS
-  - NineS
-  - NineS
+  - EightC
+  - KingH
+  Decoys: []
   Selections: []

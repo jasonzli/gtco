@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7127643912329130356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7127643912329130354}
+  - component: {fileID: 7127643912329130355}
+  m_Layer: 0
+  m_Name: SlidesControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7127643912329130354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7127643912329130356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -71.53125, y: 90.964424, z: -10.08543}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7127643912329130355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7127643912329130356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab75ec667c81e1849bf704801bd0131f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slides:
+  - {fileID: 2800000, guid: eb1292bb484349b488c69feb315aa8be, type: 3}
+  - {fileID: 2800000, guid: 2b443ff8b2129ba47abee03804c76362, type: 3}
+  - {fileID: 2800000, guid: 63441c117df075549b5288dc175528ed, type: 3}
+  - {fileID: 2800000, guid: 8a973dd0634d09d42bfa2d9a1245dfbb, type: 3}
+  - {fileID: 2800000, guid: bc7160b2f312df047b46f2daca5d1f43, type: 3}
+  - {fileID: 2800000, guid: bc8fab1a03343c043b223540e82142a5, type: 3}
+  - {fileID: 2800000, guid: 99e52b7bb9140c64f9639db7442207d0, type: 3}
+  - {fileID: 2800000, guid: 9ee309fdc29cd9b4b8ef8e6744d43d4f, type: 3}
+  - {fileID: 2800000, guid: 7a738c34822a8c341849aee301466c75, type: 3}
+  - {fileID: 2800000, guid: 0a0af9e98452c5c409322b9931114811, type: 3}
+  imageUI: {fileID: 0}
+  slidePosition: 0

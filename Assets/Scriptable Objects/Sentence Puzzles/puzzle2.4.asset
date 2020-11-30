@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 623c29371bb6e1f43bd9ce607ec395e6, type: 3}
-  m_Name: SentencePuzzle 2
+  m_Name: puzzle2.4
   m_EditorClassIdentifier: 
   puzzleIdentityCSV: {fileID: 4900000, guid: 9faa9844eb503e1449d0864bd19dc809, type: 3}
   ReadFromCSV: 0
-  blankSentence: Parvati trusts _ as _ to _ her wish for _ whilst bathing.
-  mythSentence: Parvati trusts Nandi as guardian to protect her wish for privacy
-    whilst bathing.
-  dataSentence: With Location Settings off, an Arizona resident, trusts her movements
-    to be private when using Google Search
+  blankSentence: '_ _ he can enter his home unchecked and is angry to find himself
+    _ by _, an unknown child '
+  mythSentence: 'Shiva trusts he can enter his home unchecked and is angry to find
+    himself blocked by Ganesh, an unknown child '
+  dataSentence: Expecting to continue saving data through other services, Google's
+    tracking is interrupted by an Arizona law suit
   Keys:
-  - QueenC
+  - KingH
   - EightH
-  - AceC
-  - NineS
-  - NineS
-  - NineS
-  - NineS
-  - NineS
+  - NineD
+  - AceS
+  Decoys: []
   Selections: []
