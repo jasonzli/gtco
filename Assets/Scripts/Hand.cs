@@ -43,7 +43,7 @@ public class Hand : MonoBehaviour
         sp = puzzle;
         DataText.text = sp.DataSentence;
         DataText.gameObject.SetActive(false);
-        SentenceText.text = sp.PartialSentence;
+        SentenceText.text = sp.BlankSentence;
     }
 
     void Start()
