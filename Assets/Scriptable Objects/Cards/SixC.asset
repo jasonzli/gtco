@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SixC
   m_EditorClassIdentifier: 
   cardName: SixC
-  cardWord: Data
+  cardWord: Mount Kailash
   frontImage: {fileID: 2800000, guid: c551f7360183d3145a5565020e55d36b, type: 3}

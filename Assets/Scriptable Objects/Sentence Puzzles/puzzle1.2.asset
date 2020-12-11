@@ -22,7 +22,5 @@ MonoBehaviour:
   - KingH
   - SixC
   - NineC
-  Decoys:
-  - NineS
-  - NineS
+  Decoys: []
   Selections: []
