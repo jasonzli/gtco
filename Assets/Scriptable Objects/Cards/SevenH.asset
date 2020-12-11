@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SevenH
   m_EditorClassIdentifier: 
   cardName: SevenH
-  cardWord: Movement
+  cardWord: Privacy
   frontImage: {fileID: 2800000, guid: 708981887dafb7f49894258e19310180, type: 3}

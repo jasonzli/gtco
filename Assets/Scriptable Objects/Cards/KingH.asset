@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: KingH
   m_EditorClassIdentifier: 
   cardName: KingH
-  cardWord: Google
+  cardWord: Shiva
   frontImage: {fileID: 2800000, guid: e3b82fbaecc5f1b4e9f900a15d145738, type: 3}

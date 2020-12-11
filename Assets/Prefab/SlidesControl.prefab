@@ -46,5 +46,13 @@ MonoBehaviour:
   slides:
   - {fileID: 2800000, guid: eb1292bb484349b488c69feb315aa8be, type: 3}
   - {fileID: 2800000, guid: 2b443ff8b2129ba47abee03804c76362, type: 3}
+  - {fileID: 2800000, guid: 63441c117df075549b5288dc175528ed, type: 3}
+  - {fileID: 2800000, guid: 8a973dd0634d09d42bfa2d9a1245dfbb, type: 3}
+  - {fileID: 2800000, guid: bc7160b2f312df047b46f2daca5d1f43, type: 3}
+  - {fileID: 2800000, guid: bc8fab1a03343c043b223540e82142a5, type: 3}
+  - {fileID: 2800000, guid: 99e52b7bb9140c64f9639db7442207d0, type: 3}
+  - {fileID: 2800000, guid: 9ee309fdc29cd9b4b8ef8e6744d43d4f, type: 3}
+  - {fileID: 2800000, guid: 7a738c34822a8c341849aee301466c75, type: 3}
+  - {fileID: 2800000, guid: 0a0af9e98452c5c409322b9931114811, type: 3}
   imageUI: {fileID: 0}
   slidePosition: 0

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AceC
   m_EditorClassIdentifier: 
   cardName: AceC
-  cardWord: Guardian
+  cardWord: Nandi
   frontImage: {fileID: 2800000, guid: 7a257d06f90461943ac66cc88e194072, type: 3}
